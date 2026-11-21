@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/needell.json"]={"id":"needell","seasons":[{"year":1980,"team":"Ensign","teamId":"ensign","pos":33,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":2}],"wins":[],"finishes":{},"dnf":2};

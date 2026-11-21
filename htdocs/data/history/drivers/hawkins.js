@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/hawkins.json"]={"id":"hawkins","seasons":[{"year":1965,"team":"Brabham-Ford, Lotus-Climax","teamId":"lotus-climax","pos":22,"points":0,"starts":3,"wins":0,"podiums":0,"poles":0,"best":9,"dnf":2}],"wins":[],"finishes":{"9":1,"10":1},"dnf":2};

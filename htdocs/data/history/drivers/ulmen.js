@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/ulmen.json"]={"id":"ulmen","seasons":[{"year":1952,"team":"Veritas","teamId":"veritas","pos":38,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":8,"dnf":1}],"wins":[],"finishes":{"8":1},"dnf":1};

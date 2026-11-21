@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/pesenti_rossi.json"]={"id":"pesenti_rossi","seasons":[{"year":1976,"team":"Tyrrell","teamId":"tyrrell","pos":32,"points":0,"starts":4,"wins":0,"podiums":0,"poles":0,"best":11,"dnf":1}],"wins":[],"finishes":{"11":1,"14":1,"18":1},"dnf":1};

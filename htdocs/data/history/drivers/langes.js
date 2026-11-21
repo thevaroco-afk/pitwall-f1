@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/langes.json"]={"id":"langes","seasons":[{"year":1990,"team":"Euro Brun","teamId":"eurobrun","pos":38,"points":0,"starts":14,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":14}],"wins":[],"finishes":{},"dnf":14};

@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/gaillard.json"]={"id":"gaillard","seasons":[{"year":1979,"team":"Ensign","teamId":"ensign","pos":31,"points":0,"starts":5,"wins":0,"podiums":0,"poles":0,"best":13,"dnf":4}],"wins":[],"finishes":{"13":1},"dnf":4};

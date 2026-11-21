@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/schroeder.json"]={"id":"schroeder","seasons":[{"year":1962,"team":"Lotus-Climax","teamId":"lotus-climax","pos":29,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":10,"dnf":0}],"wins":[],"finishes":{"10":1},"dnf":0};

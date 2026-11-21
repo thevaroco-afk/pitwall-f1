@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/dochnal.json"]={"id":"dochnal","seasons":[{"year":1963,"team":"Cooper-Climax","teamId":"cooper-climax","pos":50,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":1}],"wins":[],"finishes":{},"dnf":1};

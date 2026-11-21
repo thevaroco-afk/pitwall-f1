@@ -1,0 +1,5 @@
+tools/.fastf1-cache/
+__pycache__/
+*.pyc
+.DS_Store
+.wrangler/

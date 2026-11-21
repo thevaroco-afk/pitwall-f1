@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/chiesa.json"]={"id":"chiesa","seasons":[{"year":1992,"team":"Fondmetal","teamId":"fondmetal","pos":null,"points":0,"starts":10,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":10}],"wins":[],"finishes":{},"dnf":10};

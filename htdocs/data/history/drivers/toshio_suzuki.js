@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/toshio_suzuki.json"]={"id":"toshio_suzuki","seasons":[{"year":1993,"team":"Larrousse","teamId":"larrousse","pos":31,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":12,"dnf":0}],"wins":[],"finishes":{"12":1,"14":1},"dnf":0};

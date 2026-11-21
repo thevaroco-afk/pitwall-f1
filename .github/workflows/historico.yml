@@ -1,0 +1,55 @@
+# Actualiza os dados históricos (1950 até hoje) a partir do dataset do Kaggle de Rohan Rao.
+# Corre sozinho uma vez por ano, a 10 de Janeiro (a época anterior já está fechada).
+# Também pode ser lançado à mão: separador Actions → "Dados históricos" → Run workflow.
+name: Dados históricos
+
+on:
+  schedule:
+    - cron: "0 6 10 1 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-update
+  cancel-in-progress: false
+
+jobs:
+  history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+
+      - name: Instalar dependências
+        run: pip install pandas kagglehub
+
+      - name: Descarregar dataset do Kaggle
+        env:
+          # opcionais: só são precisos se o Kaggle recusar o download sem conta
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+        run: |
+          [ -z "$KAGGLE_USERNAME" ] && unset KAGGLE_USERNAME KAGGLE_KEY
+          CSV_DIR=$(python tools/download_kaggle.py | tail -n 1)
+          echo "CSV em: $CSV_DIR"
+          echo "CSV_DIR=$CSV_DIR" >> "$GITHUB_ENV"
+
+      - name: Converter para JSON
+        run: python tools/kaggle_to_json.py "$CSV_DIR"
+
+      - name: Guardar no repositório (o Cloudflare publica sozinho)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add htdocs/data/history
+          if git diff --cached --quiet; then echo "Sem alterações."; exit 0; fi
+          git commit -m "Dados históricos actualizados ($(date -u +%Y-%m-%d))"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 10; done

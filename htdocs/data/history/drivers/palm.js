@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/palm.json"]={"id":"palm","seasons":[{"year":1975,"team":"Hesketh","teamId":"hesketh","pos":30,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":10,"dnf":2}],"wins":[],"finishes":{"10":1},"dnf":2};

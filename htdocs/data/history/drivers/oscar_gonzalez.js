@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/oscar_gonzalez.json"]={"id":"oscar_gonzalez","seasons":[{"year":1956,"team":"Maserati","teamId":"maserati","pos":31,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":6,"dnf":0}],"wins":[],"finishes":{"6":1},"dnf":0};

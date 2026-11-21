@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/ernesto_brambilla.json"]={"id":"ernesto_brambilla","seasons":[{"year":1963,"team":"Cooper-Maserati","teamId":"cooper-maserati","pos":57,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":1}],"wins":[],"finishes":{},"dnf":1};

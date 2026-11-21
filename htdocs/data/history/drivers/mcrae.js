@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/mcrae.json"]={"id":"mcrae","seasons":[{"year":1973,"team":"Iso Marlboro","teamId":"iso_marlboro","pos":42,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":1}],"wins":[],"finishes":{},"dnf":1};

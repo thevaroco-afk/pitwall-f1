@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/bisch.json"]={"id":"bisch","seasons":[{"year":1958,"team":"Kuzma","teamId":"kuzma","pos":87,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":1}],"wins":[],"finishes":{},"dnf":1};

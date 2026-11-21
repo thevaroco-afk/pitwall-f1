@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/munaron.json"]={"id":"munaron","seasons":[{"year":1960,"team":"Maserati, Cooper-Castellotti","teamId":"cooper-castellotti","pos":52,"points":0,"starts":4,"wins":0,"podiums":0,"poles":0,"best":13,"dnf":2}],"wins":[],"finishes":{"13":1,"15":1},"dnf":2};

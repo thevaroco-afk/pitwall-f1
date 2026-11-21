@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/daigh.json"]={"id":"daigh","seasons":[{"year":1960,"team":"Scarab, Cooper-Climax","teamId":"scarab","pos":42,"points":0,"starts":6,"wins":0,"podiums":0,"poles":0,"best":10,"dnf":5}],"wins":[],"finishes":{"10":1},"dnf":5};

@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/guelfi.json"]={"id":"guelfi","seasons":[{"year":1958,"team":"Cooper","teamId":"cooper","pos":49,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":15,"dnf":0}],"wins":[],"finishes":{"15":1},"dnf":0};

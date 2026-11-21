@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/kozarowitzky.json"]={"id":"kozarowitzky","seasons":[{"year":1977,"team":"March","teamId":"march","pos":54,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":2}],"wins":[],"finishes":{},"dnf":2};

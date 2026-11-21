@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/pozzi.json"]={"id":"pozzi","seasons":[{"year":1950,"team":"Talbot-Lago","teamId":"lago","pos":26,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":6,"dnf":0}],"wins":[],"finishes":{"6":1},"dnf":0};

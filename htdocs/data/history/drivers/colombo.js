@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/colombo.json"]={"id":"colombo","seasons":[{"year":1978,"team":"ATS, Merzario","teamId":"ats","pos":42,"points":0,"starts":3,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":3}],"wins":[],"finishes":{},"dnf":3};

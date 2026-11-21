@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/serafini.json"]={"id":"serafini","seasons":[{"year":1950,"team":"Ferrari","teamId":"ferrari","pos":13,"points":3,"starts":1,"wins":0,"podiums":1,"poles":0,"best":2,"dnf":0}],"wins":[],"finishes":{"2":1},"dnf":0};

@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/sommer.json"]={"id":"sommer","seasons":[{"year":1950,"team":"Ferrari, Talbot-Lago","teamId":"lago","pos":15,"points":3,"starts":5,"wins":0,"podiums":0,"poles":0,"best":4,"dnf":4}],"wins":[],"finishes":{"4":1},"dnf":4};

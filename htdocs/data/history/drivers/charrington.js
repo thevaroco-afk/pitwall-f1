@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/charrington.json"]={"id":"charrington","seasons":[{"year":1952,"team":"Aston Butterworth","teamId":"butterworth","pos":77,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":1}],"wins":[],"finishes":{},"dnf":1};

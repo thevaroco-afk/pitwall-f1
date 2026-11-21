@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/downing.json"]={"id":"downing","seasons":[{"year":1952,"team":"Connaught","teamId":"connaught","pos":42,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":9,"dnf":1}],"wins":[],"finishes":{"9":1},"dnf":1};

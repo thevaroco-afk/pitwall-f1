@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/paletti.json"]={"id":"paletti","seasons":[{"year":1982,"team":"Osella","teamId":"osella","pos":36,"points":0,"starts":8,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":8}],"wins":[],"finishes":{},"dnf":8};

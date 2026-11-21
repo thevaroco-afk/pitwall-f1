@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/montagny.json"]={"id":"montagny","seasons":[{"year":2006,"team":"Super Aguri","teamId":"super_aguri","pos":27,"points":0,"starts":7,"wins":0,"podiums":0,"poles":0,"best":16,"dnf":4}],"wins":[],"finishes":{"16":2,"18":1},"dnf":4};

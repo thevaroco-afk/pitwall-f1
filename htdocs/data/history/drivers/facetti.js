@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/facetti.json"]={"id":"facetti","seasons":[{"year":1974,"team":"Brabham","teamId":"brabham","pos":59,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":1}],"wins":[],"finishes":{},"dnf":1};

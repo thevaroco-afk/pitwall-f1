@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/dumfries.json"]={"id":"dumfries","seasons":[{"year":1986,"team":"Team Lotus","teamId":"team_lotus","pos":13,"points":3,"starts":16,"wins":0,"podiums":0,"poles":0,"best":5,"dnf":10}],"wins":[],"finishes":{"5":1,"6":1,"7":2,"9":2},"dnf":10};

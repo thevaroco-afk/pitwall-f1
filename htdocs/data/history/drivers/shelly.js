@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/shelly.json"]={"id":"shelly","seasons":[{"year":1962,"team":"Lotus-Climax, Lotus-BRM","teamId":"lotus-climax","pos":49,"points":0,"starts":3,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":3}],"wins":[],"finishes":{},"dnf":3};

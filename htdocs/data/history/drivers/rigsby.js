@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/rigsby.json"]={"id":"rigsby","seasons":[{"year":1952,"team":"Watson","teamId":"watson","pos":56,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":12,"dnf":0}],"wins":[],"finishes":{"12":1},"dnf":0};

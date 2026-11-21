@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/gaze.json"]={"id":"gaze","seasons":[{"year":1952,"team":"HWM","teamId":"hwm","pos":62,"points":0,"starts":4,"wins":0,"podiums":0,"poles":0,"best":15,"dnf":3}],"wins":[],"finishes":{"15":1},"dnf":3};

@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/wilson.json"]={"id":"wilson","seasons":[{"year":2003,"team":"Minardi, Jaguar","teamId":"minardi","pos":20,"points":1,"starts":16,"wins":0,"podiums":0,"poles":0,"best":8,"dnf":9}],"wins":[],"finishes":{"8":1,"11":1,"13":3,"14":1,"16":1},"dnf":9};

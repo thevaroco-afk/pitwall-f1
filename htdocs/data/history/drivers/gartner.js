@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/gartner.json"]={"id":"gartner","seasons":[{"year":1984,"team":"Osella","teamId":"osella","pos":21,"points":0,"starts":8,"wins":0,"podiums":0,"poles":0,"best":5,"dnf":6}],"wins":[],"finishes":{"5":1,"12":1,"16":1},"dnf":6};

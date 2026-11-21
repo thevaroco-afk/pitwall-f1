@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/grassi.json"]={"id":"grassi","seasons":[{"year":2010,"team":"Virgin","teamId":"virgin","pos":24,"points":0,"starts":19,"wins":0,"podiums":0,"poles":0,"best":14,"dnf":8}],"wins":[],"finishes":{"14":1,"15":1,"17":2,"18":2,"19":3,"20":1},"dnf":8};

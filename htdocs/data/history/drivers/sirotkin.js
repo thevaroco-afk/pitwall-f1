@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/sirotkin.json"]={"id":"sirotkin","seasons":[{"year":2018,"team":"Williams","teamId":"williams","pos":20,"points":1,"starts":21,"wins":0,"podiums":0,"poles":0,"best":10,"dnf":3}],"wins":[],"finishes":{"10":1,"12":1,"13":3,"14":2,"15":4,"16":4,"17":1,"18":1,"19":1},"dnf":3};

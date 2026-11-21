@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/mcnish.json"]={"id":"mcnish","seasons":[{"year":2002,"team":"Toyota","teamId":"toyota","pos":19,"points":0,"starts":17,"wins":0,"podiums":0,"poles":0,"best":7,"dnf":10}],"wins":[],"finishes":{"7":1,"8":1,"9":2,"11":1,"14":2,"15":1},"dnf":10};

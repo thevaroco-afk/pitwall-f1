@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/guerra.json"]={"id":"guerra","seasons":[{"year":1981,"team":"Osella","teamId":"osella","pos":35,"points":0,"starts":4,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":4}],"wins":[],"finishes":{},"dnf":4};

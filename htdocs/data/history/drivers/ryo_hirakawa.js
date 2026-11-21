@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/ryo_hirakawa.json"]={"id":"ryo_hirakawa","seasons":[{"year":2026,"team":"Haas F1 Team","teamId":"haas","pos":21,"points":1,"starts":1,"wins":0,"podiums":0,"poles":0,"best":10,"dnf":0}],"wins":[],"finishes":{"10":1},"dnf":0};

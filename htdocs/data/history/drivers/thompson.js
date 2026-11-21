@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/thompson.json"]={"id":"thompson","seasons":[{"year":1952,"team":"Connaught","teamId":"connaught","pos":21,"points":2,"starts":1,"wins":0,"podiums":0,"poles":0,"best":5,"dnf":0}],"wins":[],"finishes":{"5":1},"dnf":0};

@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/kiesa.json"]={"id":"kiesa","seasons":[{"year":2003,"team":"Minardi","teamId":"minardi","pos":23,"points":0,"starts":5,"wins":0,"podiums":0,"poles":0,"best":11,"dnf":0}],"wins":[],"finishes":{"11":1,"12":2,"13":1,"16":1},"dnf":0};

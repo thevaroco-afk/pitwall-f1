@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/boffa.json"]={"id":"boffa","seasons":[{"year":1961,"team":"Cooper-Climax","teamId":"cooper-climax","pos":62,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":1}],"wins":[],"finishes":{},"dnf":1};

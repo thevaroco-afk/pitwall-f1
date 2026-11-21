@@ -1,0 +1,13 @@
+# Cabeçalhos do Cloudflare Pages (substitui o .htaccess do InfinityFree)
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/assets/*
+  Cache-Control: public, max-age=86400
+
+/assets/vendor/*
+  Cache-Control: public, max-age=2592000
+
+/data/*
+  Cache-Control: public, max-age=3600

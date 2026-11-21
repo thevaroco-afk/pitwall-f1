@@ -1,0 +1,66 @@
+# Exporta a telemetria FastF1 dos GP que já aconteceram e ainda não estão no site.
+# Corre sozinho à segunda e terça de manhã (depois de cada fim-de-semana de corrida).
+# Também pode ser lançado à mão: separador Actions → "Telemetria FastF1" → Run workflow.
+name: Telemetria FastF1
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"   # segunda-feira, 07:00 UTC
+    - cron: "0 7 * * 2"   # terça-feira (caso os dados ainda não estivessem prontos)
+  workflow_dispatch:
+    inputs:
+      year:
+        description: "Época (vazio = ano actual)"
+        required: false
+        default: ""
+      max_events:
+        description: "Máximo de GP a exportar nesta execução"
+        required: false
+        default: "6"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-update
+  cancel-in-progress: false
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+
+      - name: Instalar dependências
+        run: pip install -r tools/requirements.txt
+
+      - name: Cache do FastF1
+        uses: actions/cache@v4
+        with:
+          path: tools/.fastf1-cache
+          key: fastf1-${{ github.run_id }}
+          restore-keys: fastf1-
+
+      - name: Exportar sessões em falta
+        run: |
+          YEAR="${{ github.event.inputs.year }}"
+          MAX="${{ github.event.inputs.max_events }}"
+          [ -z "$YEAR" ] && YEAR=$(date -u +%Y)
+          [ -z "$MAX" ] && MAX=3
+          python tools/fastf1_export.py "$YEAR" --missing --max-events "$MAX" --no-js
+
+      - name: Guardar no repositório (o Cloudflare publica sozinho)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add htdocs/data/telemetry
+          if git diff --cached --quiet; then echo "Sem alterações."; exit 0; fi
+          git commit -m "Telemetria FastF1 actualizada ($(date -u +%Y-%m-%d))"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 10; done

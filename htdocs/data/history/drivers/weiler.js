@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/weiler.json"]={"id":"weiler","seasons":[{"year":1960,"team":"Epperly","teamId":"epperly","pos":67,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":24,"dnf":1}],"wins":[],"finishes":{"24":1},"dnf":1};

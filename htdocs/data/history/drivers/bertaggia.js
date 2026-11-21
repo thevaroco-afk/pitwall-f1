@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/bertaggia.json"]={"id":"bertaggia","seasons":[{"year":1989,"team":"Coloni","teamId":"coloni","pos":47,"points":0,"starts":6,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":6}],"wins":[],"finishes":{},"dnf":6};

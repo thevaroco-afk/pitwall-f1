@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/bianco.json"]={"id":"bianco","seasons":[{"year":1952,"team":"Maserati","teamId":"maserati","pos":67,"points":0,"starts":4,"wins":0,"podiums":0,"poles":0,"best":18,"dnf":3}],"wins":[],"finishes":{"18":1},"dnf":3};

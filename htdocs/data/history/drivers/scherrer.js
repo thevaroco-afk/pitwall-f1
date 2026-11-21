@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/scherrer.json"]={"id":"scherrer","seasons":[{"year":1953,"team":"HWM","teamId":"hwm","pos":43,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":9,"dnf":0}],"wins":[],"finishes":{"9":1},"dnf":0};

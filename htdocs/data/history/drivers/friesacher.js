@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/friesacher.json"]={"id":"friesacher","seasons":[{"year":2005,"team":"Minardi","teamId":"minardi","pos":21,"points":3,"starts":11,"wins":0,"podiums":0,"poles":0,"best":6,"dnf":6}],"wins":[],"finishes":{"6":1,"12":1,"17":1,"18":1,"19":1},"dnf":6};

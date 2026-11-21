@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/forini.json"]={"id":"forini","seasons":[{"year":1987,"team":"Osella","teamId":"osella","pos":29,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":2}],"wins":[],"finishes":{},"dnf":2};

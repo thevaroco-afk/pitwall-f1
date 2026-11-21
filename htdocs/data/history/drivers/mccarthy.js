@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/mccarthy.json"]={"id":"mccarthy","seasons":[{"year":1992,"team":"Andrea Moda","teamId":"moda","pos":null,"points":0,"starts":7,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":7}],"wins":[],"finishes":{},"dnf":7};

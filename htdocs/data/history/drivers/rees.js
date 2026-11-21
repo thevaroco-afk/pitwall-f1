@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/rees.json"]={"id":"rees","seasons":[{"year":1967,"team":"Cooper-Maserati, Brabham-Ford","teamId":"cooper-maserati","pos":24,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":7,"dnf":0}],"wins":[],"finishes":{"7":1,"9":1},"dnf":0};

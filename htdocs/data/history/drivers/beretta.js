@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/beretta.json"]={"id":"beretta","seasons":[{"year":1994,"team":"Larrousse","teamId":"larrousse","pos":27,"points":0,"starts":10,"wins":0,"podiums":0,"poles":0,"best":7,"dnf":6}],"wins":[],"finishes":{"7":1,"8":1,"9":1,"14":1},"dnf":6};

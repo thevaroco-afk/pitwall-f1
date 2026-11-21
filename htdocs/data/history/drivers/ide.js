@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/ide.json"]={"id":"ide","seasons":[{"year":2006,"team":"Super Aguri","teamId":"super_aguri","pos":25,"points":0,"starts":4,"wins":0,"podiums":0,"poles":0,"best":13,"dnf":3}],"wins":[],"finishes":{"13":1},"dnf":3};

@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/lagorce.json"]={"id":"lagorce","seasons":[{"year":1994,"team":"Ligier","teamId":"ligier","pos":33,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":11,"dnf":1}],"wins":[],"finishes":{"11":1},"dnf":1};

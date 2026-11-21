@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/papis.json"]={"id":"papis","seasons":[{"year":1995,"team":"Footwork","teamId":"footwork","pos":22,"points":0,"starts":7,"wins":0,"podiums":0,"poles":0,"best":7,"dnf":5}],"wins":[],"finishes":{"7":1,"12":1},"dnf":5};

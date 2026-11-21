@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/pantano.json"]={"id":"pantano","seasons":[{"year":2004,"team":"Jordan","teamId":"jordan","pos":24,"points":0,"starts":14,"wins":0,"podiums":0,"poles":0,"best":13,"dnf":8}],"wins":[],"finishes":{"13":2,"14":1,"15":1,"16":1,"17":1},"dnf":8};

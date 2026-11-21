@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/Cannoc.json"]={"id":"Cannoc","seasons":[{"year":1971,"team":"BRM","teamId":"brm","pos":33,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":14,"dnf":0}],"wins":[],"finishes":{"14":1},"dnf":0};

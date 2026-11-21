@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/aitken.json"]={"id":"aitken","seasons":[{"year":2020,"team":"Williams","teamId":"williams","pos":22,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":16,"dnf":0}],"wins":[],"finishes":{"16":1},"dnf":0};

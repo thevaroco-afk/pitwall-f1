@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/noda.json"]={"id":"noda","seasons":[{"year":1994,"team":"Larrousse","teamId":"larrousse","pos":44,"points":0,"starts":3,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":3}],"wins":[],"finishes":{},"dnf":3};

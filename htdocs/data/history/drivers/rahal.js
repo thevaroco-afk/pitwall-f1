@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/rahal.json"]={"id":"rahal","seasons":[{"year":1978,"team":"Wolf","teamId":"wolf","pos":33,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":12,"dnf":1}],"wins":[],"finishes":{"12":1},"dnf":1};

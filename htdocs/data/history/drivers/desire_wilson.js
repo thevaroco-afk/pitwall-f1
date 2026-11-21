@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/desire_wilson.json"]={"id":"desire_wilson","seasons":[{"year":1980,"team":"Williams","teamId":"williams","pos":40,"points":0,"starts":1,"wins":0,"podiums":0,"poles":0,"best":null,"dnf":1}],"wins":[],"finishes":{},"dnf":1};

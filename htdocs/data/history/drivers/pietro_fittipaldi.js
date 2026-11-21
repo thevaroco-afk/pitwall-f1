@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/pietro_fittipaldi.json"]={"id":"pietro_fittipaldi","seasons":[{"year":2020,"team":"Haas F1 Team","teamId":"haas","pos":23,"points":0,"starts":2,"wins":0,"podiums":0,"poles":0,"best":17,"dnf":0}],"wins":[],"finishes":{"17":1,"19":1},"dnf":0};

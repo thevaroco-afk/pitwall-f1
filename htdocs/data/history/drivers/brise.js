@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/brise.json"]={"id":"brise","seasons":[{"year":1975,"team":"Williams, Embassy Hill","teamId":"hill","pos":19,"points":1,"starts":10,"wins":0,"podiums":0,"poles":0,"best":6,"dnf":5}],"wins":[],"finishes":{"6":1,"7":3,"15":2},"dnf":5};

@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/chitwood.json"]={"id":"chitwood","seasons":[{"year":1950,"team":"Kurtis Kraft","teamId":"kurtis_kraft","pos":22,"points":1,"starts":1,"wins":0,"podiums":0,"poles":0,"best":5,"dnf":0}],"wins":[],"finishes":{"5":1},"dnf":0};

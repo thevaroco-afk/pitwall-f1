@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/garde.json"]={"id":"garde","seasons":[{"year":2013,"team":"Caterham","teamId":"caterham","pos":21,"points":0,"starts":19,"wins":0,"podiums":0,"poles":0,"best":14,"dnf":4}],"wins":[],"finishes":{"14":1,"15":3,"16":2,"18":7,"19":1,"21":2},"dnf":4};

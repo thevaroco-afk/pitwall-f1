@@ -1,0 +1,1 @@
+(window.__PW_DATA=window.__PW_DATA||{})["data/history/drivers/andretti.json"]={"id":"andretti","seasons":[{"year":1993,"team":"McLaren","teamId":"mclaren","pos":11,"points":7,"starts":13,"wins":0,"podiums":1,"poles":0,"best":3,"dnf":7}],"wins":[],"finishes":{"3":1,"5":1,"6":1,"8":2,"14":1},"dnf":7};
