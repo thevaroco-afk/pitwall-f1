@@ -155,21 +155,9 @@ function compareHtml(A, B) {
   const pct = (a, b) => (a + b ? (a / (a + b)) * 100 : 50);
   const ratios = [['% vitórias', (P) => (P.totals.starts ? (P.totals.wins / P.totals.starts) * 100 : 0)], ['% pódios', (P) => (P.totals.starts ? (P.totals.podiums / P.totals.starts) * 100 : 0)], ['% poles', (P) => (P.totals.starts ? (P.totals.poles / P.totals.starts) * 100 : 0)]];
   const bc = B.color === A.color ? '#ffffff' : B.color;
-  // grelha de 3 colunas: piloto A (célula à esquerda) · estatística + barra · piloto B (célula à direita)
-  const COLS = 'display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr);gap:clamp(6px,1.5vw,10px);align-items:stretch';
-  const cell = (side, color, html, win) => `<div style="background:var(--surface-2);border:1px solid ${win ? color : 'var(--line)'};border-radius:10px;padding:10px clamp(8px,2.5vw,14px);display:flex;align-items:center;justify-content:${side === 'l' ? 'flex-start' : 'flex-end'};text-align:${side === 'l' ? 'left' : 'right'}">${html}</div>`;
-  const line = (lbl, a, b, f = (v) => fmt.pts(v)) => `<div style="${COLS};margin:8px 0">
-      ${cell('l', A.color, `<b class="mono" style="font-size:clamp(15px,4vw,20px);${a > b ? `color:${A.color}` : ''}">${f(a)}</b>`, a > b)}
-      <div style="display:flex;flex-direction:column;justify-content:center;gap:6px"><div class="muted" style="font-size:11.5px;text-align:center;font-weight:700;text-transform:uppercase;letter-spacing:.08em">${lbl}</div><div style="display:flex;height:8px;border-radius:5px;overflow:hidden;background:var(--surface-3)"><i style="width:${pct(a, b)}%;background:${A.color}"></i><i style="width:${100 - pct(a, b)}%;background:${bc}"></i></div></div>
-      ${cell('r', bc, `<b class="mono" style="font-size:clamp(15px,4vw,20px);${b > a ? `color:${bc}` : ''}">${f(b)}</b>`, b > a)}
-    </div>`;
-  const head = (side, P, color, html) => `<div style="border-${side === 'l' ? 'left' : 'right'}:4px solid ${color};padding:${side === 'l' ? '4px 0 4px 12px' : '4px 12px 4px 0'};text-align:${side === 'l' ? 'left' : 'right'};font-weight:900;font-size:clamp(13px,3.3vw,18px);line-height:1.2;overflow-wrap:break-word">${html}</div>`;
-  return `<div class="mt">
-    <div style="${COLS};align-items:center;margin-bottom:4px">
-      ${head('l', A, A.color, `${flagNat(A.nat)} ${esc(A.name)}`)}
-      <div class="muted" style="text-align:center;font-weight:900;font-style:italic">VS</div>
-      ${head('r', B, bc, `<a href="pilotos.html?id=${esc(B.id)}">${esc(B.name)} ${flagNat(B.nat)}</a>`)}
-    </div>
+  const line = (lbl, a, b, f = (v) => fmt.pts(v)) => `<div style="display:grid;grid-template-columns:70px 1fr 70px;gap:10px;align-items:center;margin:7px 0"><b class="mono" style="text-align:right;${a > b ? `color:${A.color}` : ''}">${f(a)}</b><div><div class="muted" style="font-size:11.5px;text-align:center;font-weight:700;text-transform:uppercase;letter-spacing:.08em">${lbl}</div><div style="display:flex;height:8px;border-radius:5px;overflow:hidden;background:var(--surface-3)"><i style="width:${pct(a, b)}%;background:${A.color}"></i><i style="width:${100 - pct(a, b)}%;background:${bc}"></i></div></div><b class="mono" style="${b > a ? `color:${bc}` : ''}">${f(b)}</b></div>`;
+  return `<div class="mt" style="max-width:720px;margin-left:auto;margin-right:auto">
+    <div style="display:flex;justify-content:space-between;font-weight:900;font-size:18px"><span>${flagNat(A.nat)} ${esc(A.name)}</span><a href="pilotos.html?id=${esc(B.id)}">${esc(B.name)} ${flagNat(B.nat)}</a></div>
     ${rows.map(([l, k]) => line(l, A.totals[k] || 0, B.totals[k] || 0)).join('')}
     ${ratios.map(([l, f]) => line(l, f(A), f(B), (v) => v.toFixed(1) + '%')).join('')}
   </div>`;
