@@ -1083,6 +1083,10 @@ async function loadSession(session, meeting) {
   S.live = now >= parseT(session.date_start) - 15 * 60e3 && now <= parseT(session.date_end) + 30 * 60e3;
   S.followLive = S.live;
   setQs({ s: session.session_key, d: null });
+  // Em directo a OpenF1 exige conta paga e o mapa/telemetria da F1 exigem F1 TV:
+  // mostra-se só a cronometragem oficial (quadro acima) e o replay fica para depois.
+  if (S.live) { S.live = false; S.followLive = false; setOpenF1(false); return; }
+  setOpenF1(true);
   $('#sessTitle').innerHTML = `${flagCountry(session.country_name)} ${esc(meeting?.meeting_name || session.country_name)} <span class="muted" style="font-weight:600">· ${esc(ptName(session.session_name))} ${session.year}</span>`;
   $('#liveChip').innerHTML = S.live ? '<span class="chip live">AO VIVO</span>' : '<span class="chip">REPLAY</span>';
   $('#tower').innerHTML = skeleton(12);
@@ -1135,8 +1139,16 @@ async function loadSession(session, meeting) {
   updateTower(true);
 }
 
+function setOpenF1(show) {
+  $('#of1Wrap')?.classList.toggle('hidden', !show);
+  const note = $('#of1Note');
+  if (note) note.innerHTML = show ? '' : `<div class="notice" style="margin-top:4px">Esta sessão está a decorrer. Em directo mostramos a <b>cronometragem oficial</b> acima. O mapa da pista, a telemetria e a análise desta sessão ficam disponíveis aqui em replay pouco depois de terminar. Pode escolher outra sessão nos menus acima.</div>`;
+  if (!show) $('#status').textContent = '';
+}
+
 function showAuthOrError(e) {
   $('#status').textContent = '';
+  if (e.auth) { setOpenF1(false); return; }
   $('#tower').innerHTML = e.auth
     ? `<div class="notice warn" style="margin:14px">A OpenF1 só disponibiliza dados <b>em tempo real</b> a contas pagas. Veja a tabela de tempos em directo no quadro <b>Cronometragem oficial F1</b> acima; o mapa e o replay completo ficam disponíveis pouco depois de a sessão terminar.</div>`
     : errorBox('Não foi possível ligar à OpenF1.', e.message);
@@ -1590,7 +1602,7 @@ init(async () => {
   app.innerHTML = `
     <section class="page-hero container" style="padding-bottom:0">
       <div class="row-flex" style="justify-content:space-between">
-        <div><h1>Ao <em>Vivo</em></h1><p>Mapa da pista em tempo real, torre de tempos, pneus, rádio das equipas e direcção de corrida. Fora das sessões, reveja qualquer sessão desde 2023 em modo replay.</p></div>
+        <div><h1>Ao <em>Vivo</em></h1><p>Durante as sessões, a tabela de tempos oficial da F1 em directo. Depois, o replay de qualquer sessão desde 2023: mapa da pista, torre de tempos, pneus, telemetria do piloto, rádio das equipas e direcção de corrida.</p></div>
       </div>
       <div class="controls mt">
         <select class="select" id="yearSel" aria-label="Ano">${Array.from({ length: NOW_Y - 2022 }, (_, i) => NOW_Y - i).map((y) => `<option>${y}</option>`).join('')}</select>
@@ -1601,6 +1613,8 @@ init(async () => {
     </section>
     <section class="section container" style="padding-top:18px">
       <div id="officialLive" class="mb"></div>
+      <div id="of1Note"></div>
+      <div id="of1Wrap">
       <div class="row-flex mb"><h2 id="sessTitle" style="font-size:22px">—</h2><span id="liveChip"></span></div>
       <div class="live-layout">
         <div>
@@ -1639,6 +1653,7 @@ init(async () => {
         <div id="anaBody">${skeleton(6)}</div>
       </div>
       <p class="muted mt" style="font-size:13px">Dados: OpenF1 (gratuito para sessões terminadas; dados em tempo real exigem conta paga na OpenF1). Posições no mapa a ~4 Hz, interpoladas.</p>
+      </div>
     </section>`;
 
   mountOfficialLive($('#officialLive'));
