@@ -589,8 +589,8 @@ function render() {
     }).join('');
     const flags = l.Retired ? '<span class="chip red" style="padding:1px 7px">DNF</span>'
       : l.Stopped ? '<span class="chip red" style="padding:1px 7px">PARADO</span>'
-      : l.InPit ? '<span class="chip yellow" style="padding:1px 7px">BOX</span>'
-      : l.PitOut ? '<span class="chip blue" style="padding:1px 7px">SAÍDA</span>'
+      : live && l.InPit ? '<span class="chip yellow" style="padding:1px 7px">BOX</span>'
+      : live && l.PitOut ? '<span class="chip blue" style="padding:1px 7px">SAÍDA</span>'
       : l.KnockedOut ? '<span class="chip" style="padding:1px 7px">ELIM.</span>' : '';
     const pp = ST.prevPos.get(n);
     const mv = pp && pp !== pos ? (pos < pp ? 'up' : 'down') : '';
