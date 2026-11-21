@@ -835,7 +835,7 @@ function profileHead(P, side = 'l') {
   const ss = P.seasons;
   const name = r ? `<a href="pilotos.html?id=${esc(P.id)}">${esc(P.name)}</a>` : esc(P.name);
   return `<div class="profile-head" style="${r ? 'flex-direction:row-reverse;text-align:right' : ''}">
-        <div class="avatar" style="border:2px solid ${P.color}">${P.headshot ? `<img src="${esc(P.headshot)}" alt="">` : esc(initials)}</div>
+        <div class="avatar" style="border:2px solid ${P.color}">${P.headshot ? `<img src="${esc(P.headshot)}" alt="">` : esc(P.num || initials)}</div>
         <div>
           <div class="muted" style="font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px">${flagNat(P.nat)} ${esc(P.nat || '')}${P.num ? ` · #${esc(P.num)}` : ''}${P.code ? ` · ${esc(P.code)}` : ''}</div>
           <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;font-style:italic;text-transform:uppercase">${name}</h2>
