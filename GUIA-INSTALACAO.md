@@ -63,18 +63,20 @@ A partir daqui fica tudo automático:
 
 | O quê | Quando |
 |---|---|
-| **Telemetria FastF1** dos GP que faltam (qualificação, sprint e corrida) | Todas as segundas e terças às 07:00 (hora de Lisboa no Inverno) |
+| **Telemetria** (OpenF1) dos GP que faltam (qualificação, sprint e corrida) | Todas as segundas e terças às 07:00 (hora de Lisboa no Inverno) |
 | **Dados históricos** 1950 até à última época | Uma vez por ano, a 10 de Janeiro |
 
 ### Primeira execução (recomendado)
 
-O site começa sem telemetria FastF1. Para encher já a época actual:
+O site começa sem telemetria guardada. Para encher já a época actual:
 
-1. Separador **Actions** → à esquerda **Telemetria FastF1** → botão **Run workflow** (à direita).
-2. Em "Máximo de GP a exportar" escreva `30` e clique no botão verde **Run workflow**.
+1. Separador **Actions** → à esquerda **Telemetria** → botão **Run workflow** (à direita).
+2. Clique no botão verde **Run workflow**.
 3. Demora (cerca de 2 a 4 horas para uma época inteira). Pode fechar a página. Quando acabar aparece um ✅ verde e o site é republicado sozinho.
 
-Para outra época (ex.: 2025), faça o mesmo e escreva `2025` em "Época".
+Para outra época (2023 em diante), faça o mesmo e escreva o ano em "Época".
+
+Nota: nos fins-de-semana de corrida a OpenF1 fecha a API a quem não paga; se a tarefa correr nessa altura, termina sem erro e tenta outra vez na execução seguinte.
 
 Para testar o histórico: **Actions** → **Dados históricos** → **Run workflow**.
 

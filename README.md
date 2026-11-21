@@ -1,6 +1,6 @@
 # PITWALL — site de fãs de Fórmula 1
 
-Versão para **GitHub + Cloudflare (Worker com ficheiros estáticos)**. O site é estático (HTML/CSS/JS) e os dois pequenos "proxies" que antes eram PHP passaram a correr num Cloudflare Worker (`worker/index.js` + `functions/api/`). Os dados de telemetria (FastF1) e o histórico (Kaggle) são actualizados **sozinhos** pelo GitHub Actions.
+Versão para **GitHub + Cloudflare (Worker com ficheiros estáticos)**. O site é estático (HTML/CSS/JS) e os dois pequenos "proxies" que antes eram PHP passaram a correr num Cloudflare Worker (`worker/index.js` + `functions/api/`). Os dados de telemetria (OpenF1, exportados) e o histórico (Kaggle) são actualizados **sozinhos** pelo GitHub Actions.
 
 👉 **Para pôr o site no ar, siga o [GUIA-INSTALACAO.md](GUIA-INSTALACAO.md).**
 
@@ -14,7 +14,7 @@ Versão para **GitHub + Cloudflare (Worker com ficheiros estáticos)**. O site �
 | `htdocs/_headers` | Regras de cache (substitui o `.htaccess`) |
 | `functions/api/news.js` | Notícias RSS → `/api/news` (substitui `api/news.php`) |
 | `functions/api/openf1.js` | Proxy da OpenF1 → `/api/openf1`, usado quando o browser (ex.: Safari) não consegue ligar directamente (substitui `api/openf1.php`) |
-| `.github/workflows/fastf1.yml` | Todas as segundas e terças de manhã exporta a telemetria FastF1 dos GP que faltam |
+| `.github/workflows/telemetria.yml` | Todas as segundas e terças de manhã exporta a telemetria (OpenF1) dos GP que faltam, com `tools/openf1_export.py` |
 | `.github/workflows/historico.yml` | Todos os anos a 10 de Janeiro actualiza o histórico 1950–hoje (dataset Kaggle de Rohan Rao) |
 | `tools/` | Os scripts Python (também podem correr no seu computador) |
 

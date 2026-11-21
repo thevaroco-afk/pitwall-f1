@@ -309,7 +309,7 @@ init(async () => {
     <section class="page-hero container">
       <h1>Tele<em>metria</em></h1>
       <p>Compare voltas lado a lado: velocidade, acelerador, travão, mudanças e RPM, delta ao longo da volta e quem domina cada mini-sector. Passe o rato pelos gráficos para seguir os carros no mapa.</p>
-      <div class="tabs mt" id="srcTabs" style="display:inline-flex"><button class="tab" data-tab="fastf1">FastF1 · alta resolução</button><button class="tab" data-tab="openf1">OpenF1 · 2023+</button></div>
+      <div class="tabs mt" id="srcTabs" style="display:inline-flex"><button class="tab" data-tab="fastf1">Sessões guardadas · rápido</button><button class="tab" data-tab="openf1">OpenF1 directo · 2023+</button></div>
       <div class="controls mt" id="srcControls"></div>
     </section>
     <section class="section container" style="padding-top:10px">
@@ -324,7 +324,7 @@ init(async () => {
 
   const useFastF1 = () => {
     if (!ffIndex?.length) {
-      ctl.innerHTML = `<div class="notice" style="max-width:760px">Ainda não há sessões FastF1 exportadas. No seu computador, corra <code>pip install fastf1</code> e depois <code>python tools/fastf1_export.py 2025 Monaco R</code>, e envie a pasta <code>data/telemetry</code> para o site. Entretanto, use a fonte <b>OpenF1</b>.</div>`;
+      ctl.innerHTML = `<div class="notice" style="max-width:760px">Ainda não há sessões guardadas no site. São adicionadas automaticamente depois de cada GP. Entretanto, use a fonte <b>OpenF1 directo</b>.</div>`;
       $('#teleBody').innerHTML = ''; $('#drvPick').innerHTML = ''; $('#sessCharts').innerHTML = ''; $('#teleTitle').textContent = '';
       return;
     }
