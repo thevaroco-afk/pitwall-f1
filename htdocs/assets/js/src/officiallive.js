@@ -4,6 +4,7 @@
 // e reenvia os dados por WebSocket para /api/live/ws.
 // =========================================================
 import { $, esc, fmt } from './core.js';
+import { mountTrackMap, setMapVisible, ensureTrack, onSnapshot, onDelta } from './trackmap.js';
 
 const ST = { state: {}, status: null, ws: null, tries: 0, el: null, timer: null, dirty: false, prevPos: new Map(), lastRC: 0 };
 
@@ -52,8 +53,8 @@ function connect() {
   ws.onopen = () => { ST.tries = 0; };
   ws.onmessage = (ev) => {
     let m; try { m = JSON.parse(ev.data); } catch { return; }
-    if (m.t === 'snap') { ST.state = m.state || {}; ST.status = m.status; }
-    else if (m.t === 'd') { for (const [topic, data] of m.d) ST.state[topic] = merge(ST.state[topic], data); }
+    if (m.t === 'snap') { ST.state = m.state || {}; ST.status = m.status; onSnapshot(ST.state); }
+    else if (m.t === 'd') { for (const [topic, data] of m.d) { ST.state[topic] = merge(ST.state[topic], data); onDelta(topic, data, ST.state); } }
     else if (m.t === 'status') ST.status = m.status;
     ST.dirty = true;
   };
@@ -69,7 +70,7 @@ function retry() {
 function isLive() {
   const s = ST.state.SessionStatus?.Status;
   const hb = Date.parse(ST.state.Heartbeat?.Utc || '');
-  return (s === 'Started' || s === 'Aborted') || (hb && Date.now() - hb < 120_000 && s !== 'Finalised' && s !== 'Ends');
+  return (s === 'Started' || s === 'Aborted') && !(hb && Date.now() - hb > 300_000);
 }
 
 function remaining() {
@@ -93,6 +94,8 @@ function render() {
   const nums = Object.keys(lines).filter((n) => drivers[n] || lines[n]);
   if (!nums.length) {
     const st = ST.status;
+    el.dataset.built = '';
+    setMapVisible(false);
     el.innerHTML = st?.upstream === 'error'
       ? `<p class="muted" style="font-size:13px">Cronometragem oficial F1: sem ligação neste momento (${esc(st.error || 'erro')}). A tentar de novo…</p>`
       : `<p class="muted" style="font-size:13px">Cronometragem oficial F1: ${st?.upstream === 'connected' ? 'ligado, à espera de dados da sessão.' : 'a ligar…'}</p>`;
@@ -161,8 +164,33 @@ function render() {
   const weather = w ? [[`${w.AirTemp}°`, 'Ar'], [`${w.TrackTemp}°`, 'Pista'], [`${w.Humidity}%`, 'Humidade'], [`${w.WindSpeed} m/s`, 'Vento'], [+w.Rainfall ? '🌧 Sim' : '☀ Não', 'Chuva']]
     .map(([v, l]) => `<div class="w"><b>${esc(v)}</b><span>${l}</span></div>`).join('') : '';
 
-  el.innerHTML = `
+  if (!el.dataset.built) {
+    el.dataset.built = '1';
+    el.innerHTML = `
     <div class="card">
+      <div id="olHead"></div>
+      <div class="ol-grid">
+        <div class="timing ol" id="olTiming"></div>
+        <div>
+          <div id="olMapBox" class="hidden">
+            <div class="card-title">Mapa <span class="chip yellow" title="Não é a posição GPS real">POSIÇÃO ESTIMADA</span></div>
+            <div class="ol-map"><canvas id="olMap"></canvas></div>
+            <div id="olPits" class="ol-pits"></div>
+            <p class="muted" style="font-size:12px;margin:6px 0 14px">A posição de cada carro é <b>estimada</b> a partir dos mini-sectores que completa e do seu ritmo por volta. Pode estar alguns metros (ou segundos) desfasada da posição real.</p>
+          </div>
+          <div id="olSide"></div>
+        </div>
+      </div>
+      <p class="muted" style="font-size:12.5px;margin:10px 0 0">Dados oficiais da Formula 1 (livetiming.formula1.com), em directo e sem conta. A posição GPS dos carros e a telemetria exigem F1 TV e não estão incluídas.</p>
+    </div>`;
+    mountTrackMap($('#olMap', el), () => ST.state);
+  }
+  ensureTrack(S);
+  $('#olMapBox', el).classList.toggle('hidden', !live);
+  setMapVisible(live);
+  const pitting = rows.filter(({ l }) => l.InPit || l.Retired || l.Stopped);
+  $('#olPits', el).innerHTML = live && pitting.length ? `<span class="muted">Na box / fora de pista:</span> ${pitting.map(({ l, d }) => `<span class="chip ${l.InPit ? 'yellow' : 'red'}" style="padding:1px 8px">${esc(d.Tla || '')}</span>`).join(' ')}` : '';
+  $('#olHead', el).innerHTML = `
       <div class="row-flex mb" style="justify-content:space-between">
         <div class="row-flex">
           <div class="card-title" style="margin:0">Cronometragem oficial F1</div>
@@ -174,18 +202,12 @@ function render() {
           ${live ? `<span class="lapbig" id="olClock">${remaining() ?? ''}</span>` : ''}
         </div>
       </div>
-      <h3 style="font-size:18px;margin:0 0 10px">${esc(info.Meeting?.Name || '')} · ${esc(NAME_PT[info.Name] || info.Name || TYPE_PT[info.Type] || '')}${part && isQuali ? ` · Q${part}` : ''}</h3>
-      <div class="ol-grid">
-        <div class="timing ol">
+      <h3 style="font-size:18px;margin:0 0 10px">${esc(info.Meeting?.Name || '')} · ${esc(NAME_PT[info.Name] || info.Name || TYPE_PT[info.Type] || '')}${part && isQuali ? ` · Q${part}` : ''}</h3>`;
+  $('#olTiming', el).innerHTML = `
           <div class="row hd"><span>P</span><span></span><span>Piloto</span><span>${isRace ? 'Intervalo' : 'Melhor volta'}</span><span style="text-align:right">Última</span><span>Sect.</span><span>Pneu</span><span>Box</span></div>
-          ${body}
-        </div>
-        <div>
+          ${body}`;
+  $('#olSide', el).innerHTML = `
           <div class="card-title">Direcção de corrida</div>
           <div class="feed">${rc.map((m) => `<div class="it"><span class="tm">${esc((m.Utc ? fmt.clock(Date.parse(m.Utc + (/Z$/.test(m.Utc) ? '' : 'Z'))) : '').slice(0, 8))}${m.Lap ? `<br>V${m.Lap}` : ''}</span><span>${esc(m.Message)}</span></div>`).join('') || '<p class="muted">Sem mensagens.</p>'}</div>
-          ${weather ? `<div class="card-title mt">Meteorologia</div><div class="weather">${weather}</div>` : ''}
-        </div>
-      </div>
-      <p class="muted" style="font-size:12.5px;margin:10px 0 0">Dados oficiais da Formula 1 (livetiming.formula1.com), em directo e sem conta. O mapa com os carros e a telemetria em directo exigem F1 TV e não estão incluídos.</p>
-    </div>`;
+          ${weather ? `<div class="card-title mt">Meteorologia</div><div class="weather">${weather}</div>` : ''}`;
 }
