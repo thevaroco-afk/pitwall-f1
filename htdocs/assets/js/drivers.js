@@ -822,8 +822,8 @@ function statCards(P, V) {
     const sa = String(show(k, P.totals[k])), sb = String(show(k, V.totals[k]));
     const fs = Math.max(sa.length, sb.length) >= 5 ? 'clamp(16px,1.7vw,22px)' : 'clamp(20px,2.4vw,30px)';
     return `<div class="card"><div class="stat"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
-      <span class="v" style="font-size:${fs};${a > b ? `color:${P.color}` : ''}">${sa}</span>
-      <span class="v" style="font-size:${fs};text-align:right;${b > a ? `color:${vc}` : ''}">${sb}</span>
+      <span class="v" style="font-size:${fs};color:${P.color}">${sa}</span>
+      <span class="v" style="font-size:${fs};text-align:right;color:${vc}">${sb}</span>
     </div><span class="l" style="text-align:center">${l}</span></div></div>`;
   }).join('');
 }
