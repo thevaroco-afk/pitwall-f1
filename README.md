@@ -1,6 +1,6 @@
 # PITWALL — site de fãs de Fórmula 1
 
-Versão para **GitHub + Cloudflare Pages**. O site é estático (HTML/CSS/JS) e os dois pequenos "proxies" que antes eram PHP passaram a ser **Cloudflare Pages Functions** (pasta `functions/`). Os dados de telemetria (FastF1) e o histórico (Kaggle) são actualizados **sozinhos** pelo GitHub Actions.
+Versão para **GitHub + Cloudflare (Worker com ficheiros estáticos)**. O site é estático (HTML/CSS/JS) e os dois pequenos "proxies" que antes eram PHP passaram a correr num Cloudflare Worker (`worker/index.js` + `functions/api/`). Os dados de telemetria (FastF1) e o histórico (Kaggle) são actualizados **sozinhos** pelo GitHub Actions.
 
 👉 **Para pôr o site no ar, siga o [GUIA-INSTALACAO.md](GUIA-INSTALACAO.md).**
 
@@ -8,6 +8,8 @@ Versão para **GitHub + Cloudflare Pages**. O site é estático (HTML/CSS/JS) e 
 
 | Pasta / ficheiro | Para que serve |
 |---|---|
+| `wrangler.jsonc` | Configuração do Cloudflare (publica a pasta `htdocs/` e o Worker) |
+| `worker/index.js` | Encaminha `/api/news` e `/api/openf1`; tudo o resto são os ficheiros de `htdocs/` |
 | `htdocs/` | O site em si (é esta a pasta que o Cloudflare publica) |
 | `htdocs/_headers` | Regras de cache (substitui o `.htaccess`) |
 | `functions/api/news.js` | Notícias RSS → `/api/news` (substitui `api/news.php`) |

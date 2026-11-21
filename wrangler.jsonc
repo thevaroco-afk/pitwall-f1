@@ -1,0 +1,12 @@
+// Configuração do Cloudflare Worker (site + /api/news + /api/openf1)
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pitwall-f1",
+  "main": "worker/index.js",
+  "compatibility_date": "2025-06-01",
+  "assets": {
+    "directory": "./htdocs",
+    "binding": "ASSETS"
+  },
+  "observability": { "enabled": true }
+}

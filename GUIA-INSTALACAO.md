@@ -1,4 +1,4 @@
-# Guia: pôr o PITWALL no ar com GitHub + Cloudflare Pages
+# Guia: pôr o PITWALL no ar com GitHub + Cloudflare
 
 Tempo total: cerca de 20 minutos. Não precisa de instalar Python nem de escrever código.
 
@@ -38,24 +38,19 @@ O site tem cerca de 1800 ficheiros (os dados históricos), e a página do GitHub
 
 Confirme no site do GitHub que vê as pastas `.github`, `functions`, `htdocs` e `tools`.
 
-## Passo 3 — Ligar o Cloudflare Pages
+## Passo 3 — Ligar o Cloudflare
 
 1. Entre em <https://dash.cloudflare.com>.
-2. No menu da esquerda: **Workers & Pages** (às vezes dentro de *Compute*).
-3. Clique em **Create** (ou *Create application*) e escolha o separador **Pages**. Se só lhe aparecer a opção de Workers, procure a ligação *"Looking to deploy Pages? Get started"*.
-4. Escolha **Import an existing Git repository** (ou *Connect to Git*).
-5. Clique em **Connect GitHub**, autorize o Cloudflare e escolha o repositório `pitwall-f1`. Clique em **Begin setup**.
-6. Preencha **exactamente** assim:
-   - **Project name:** `pitwall-f1` (vai ser o endereço: `pitwall-f1.pages.dev`; se estiver ocupado, escolha outro)
-   - **Production branch:** `main`
-   - **Framework preset:** `None`
-   - **Build command:** deixe **vazio**
-   - **Build output directory:** `htdocs`
-   - (Root directory: deixe vazio)
-7. Clique em **Save and Deploy**. Espere 1–2 minutos até aparecer "Success".
-8. Abra o endereço `https://<nome>.pages.dev`. O site já deve estar no ar.
+2. No menu da esquerda: **Workers & Pages** (às vezes dentro de *Compute*) → **Create** (ou *Create application*).
+3. Escolha **Import a repository** (ligar ao Git), clique em **Connect GitHub**, autorize o Cloudflare e escolha o repositório `pitwall-f1`. Clique em **Next**.
+4. No ecrã **Set up your application** deixe tudo como está:
+   - **Project name:** `pitwall-f1`
+   - **Build command:** vazio
+   - **Deploy command:** `npx wrangler deploy`
+5. Clique em **Deploy**. Espere 1–2 minutos até aparecer "Success".
+6. O endereço do site aparece no fim (algo como `https://pitwall-f1.<a-sua-conta>.workers.dev`). Abra-o.
 
-**Verificar que está tudo bem:** abra `https://<nome>.pages.dev/diagnostico.html`. As linhas "OpenF1 via proxy do site" e "Proxy de notícias" devem estar com ✅. Teste também no Safari (iPhone/Mac).
+**Verificar que está tudo bem:** abra `<endereço>/diagnostico.html`. As linhas "OpenF1 via proxy do site" e "Proxy de notícias" devem estar com ✅. Teste também no Safari (iPhone/Mac).
 
 ## Passo 4 — Ligar as actualizações automáticas (GitHub Actions)
 
@@ -94,7 +89,7 @@ Para testar o histórico: **Actions** → **Dados históricos** → **Run workfl
 
 ## Endereço próprio (opcional)
 
-Se tiver um domínio, no Cloudflare: projecto `pitwall-f1` → **Custom domains** → **Set up a custom domain** e siga os passos.
+Se tiver um domínio, no Cloudflare: Workers & Pages → `pitwall-f1` → **Settings** → **Domains & Routes** → **Add** → *Custom domain* e siga os passos.
 
 ## Desligar o InfinityFree
 
