@@ -1373,6 +1373,7 @@ async function loadSession(session, meeting) {
   if (token !== S.token) return;
   $('#status').textContent = '';
   setupScrubber();
+  fillJumps();
   renderAnalysis();
   await ensureWindows();
   updateTower(true);
@@ -1749,6 +1750,30 @@ function updateDriverPanel(t) {
 }
 
 // ---------- Leitor / scrubber ----------
+// Momentos-chave para sincronizar com o vídeo (diferido)
+function fillJumps() {
+  const sel = $('#jumpSel'); if (!sel) return;
+  const opts = [];
+  let part = 0;
+  const isQ = /qual|shootout/i.test(S.session?.session_name || '');
+  for (const m of S.rc) {
+    const msg = (m.message || '').toUpperCase();
+    let label = null;
+    if (/GREEN LIGHT|PIT EXIT OPEN/.test(msg)) { part++; label = isQ ? `Luz verde Q${part}` : S.isRace ? 'Saída das boxes aberta' : 'Luz verde'; }
+    else if (m.flag === 'RED') label = 'Bandeira vermelha';
+    else if (m.flag === 'CHEQUERED') label = 'Bandeira axadrezada';
+    else if (/SAFETY CAR DEPLOYED/.test(msg)) label = /VIRTUAL/.test(msg) ? 'VSC' : 'Safety Car';
+    else if (/RESUME|RESTART/.test(msg)) label = 'Recomeço';
+    if (label) opts.push({ t: m.t, label: `${fmt.clock(m.t).slice(0, 8)} · ${label}` });
+  }
+  if (S.isRace) {
+    const lap1 = [...S.laps.values()].map((a) => a.find((l) => l.lap_number === 1)?.t).filter(Boolean);
+    if (lap1.length) opts.push({ t: Math.min(...lap1), label: `${fmt.clock(Math.min(...lap1)).slice(0, 8)} · Partida (volta 1)` });
+  }
+  opts.sort((a, b) => a.t - b.t);
+  sel.innerHTML = '<option value="">Saltar para…</option>' + opts.map((o) => `<option value="${o.t}">${esc(o.label)}</option>`).join('');
+}
+
 function setupScrubber() {
   const r = $('#scrub');
   r.min = 0; r.max = Math.round((S.tEnd - S.tStart) / 1000); r.value = Math.round((S.T - S.tStart) / 1000);
@@ -1862,13 +1887,20 @@ init(async () => {
             <div class="track-overlay"><span id="flag" class="flag-banner flag-GREEN">—</span><span class="lapbig" id="lapNo">—</span></div>
           </div>
           <div class="player mt-s">
-            <button class="btn icon" id="back" title="-10 s">↺</button>
+            <button class="btn icon" id="back" title="-10 s (←)">↺</button>
+            <button class="btn small" id="back1" title="-1 s (Shift+←)">−1s</button>
             <button class="btn icon primary" id="playBtn" title="Reproduzir / pausa">▶</button>
-            <button class="btn icon" id="fwd" title="+10 s">↻</button>
+            <button class="btn small" id="fwd1" title="+1 s (Shift+→)">+1s</button>
+            <button class="btn icon" id="fwd" title="+10 s (→)">↻</button>
             <span class="clock" id="clock">--:--:--</span>
             <input type="range" id="scrub" min="0" max="100" value="0" aria-label="Linha temporal">
             <select class="select" id="speed" aria-label="Velocidade">${[1, 2, 4, 8, 16, 32].map((s) => `<option value="${s}">${s}×</option>`).join('')}</select>
             <button class="btn small hidden" id="liveBtn">● DIRECTO</button>
+          </div>
+          <div class="row-flex mt-s" id="syncBar" style="font-size:13px">
+            <span class="muted">Diferido:</span>
+            <select class="select" id="jumpSel" aria-label="Saltar para um momento" style="max-width:100%"><option value="">Saltar para…</option></select>
+            <span class="muted" style="font-size:12.5px">Pause o vídeo no mesmo momento, carregue ▶ nos dois e acerte com −1s / +1s.</span>
           </div>
           <div class="card mt-s hidden" id="drvPanel"></div>
           <div class="grid g-2 mt-s">
@@ -1903,6 +1935,10 @@ init(async () => {
   $('#anaTabs').addEventListener('click', (e) => { const b = e.target.closest('.tab'); if (!b) return; $$('#anaTabs .tab').forEach((t) => t.classList.toggle('active', t === b)); analysisTab = b.dataset.tab; renderAnalysis(); });
   $('#playBtn').onclick = () => { S.followLive = false; S.playing = !S.playing; if (S.T >= S.tEnd) S.T = S.tStart; updatePlayer(); };
   $('#back').onclick = () => { S.followLive = false; S.T = clamp(S.T - 10_000, S.tStart, S.tEnd); updatePlayer(); updateTower(true); };
+  const nudge = (ms) => { S.followLive = false; S.T = clamp(S.T + ms, S.tStart, S.tEnd); updatePlayer(); updateTower(true); };
+  $('#back1').onclick = () => nudge(-1000);
+  $('#fwd1').onclick = () => nudge(1000);
+  $('#jumpSel').onchange = (e) => { const t = +e.target.value; if (!t) return; S.followLive = false; S.playing = false; S.speed = 1; $('#speed').value = '1'; S.T = clamp(t, S.tStart, S.tEnd); updatePlayer(); updateTower(true); e.target.value = ''; };
   $('#fwd').onclick = () => { S.followLive = false; S.T = clamp(S.T + 10_000, S.tStart, S.tEnd); updatePlayer(); updateTower(true); };
   $('#speed').onchange = (e) => { S.speed = +e.target.value; };
   $('#liveBtn').onclick = () => { S.followLive = !S.followLive; if (S.followLive) S.playing = false; updatePlayer(); };
@@ -1910,8 +1946,8 @@ init(async () => {
   document.addEventListener('keydown', (e) => {
     if (e.target.matches('input,select,textarea')) return;
     if (e.code === 'Space') { e.preventDefault(); $('#playBtn').click(); }
-    if (e.code === 'ArrowLeft') $('#back').click();
-    if (e.code === 'ArrowRight') $('#fwd').click();
+    if (e.code === 'ArrowLeft') $(e.shiftKey ? '#back1' : '#back').click();
+    if (e.code === 'ArrowRight') $(e.shiftKey ? '#fwd1' : '#fwd').click();
   });
 
   let meetings = [];
