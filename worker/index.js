@@ -5,9 +5,10 @@
  */
 import { onRequestGet as news } from '../functions/api/news.js';
 import { onRequestGet as openf1 } from '../functions/api/openf1.js';
+import { onRequestGet as track } from '../functions/api/track.js';
 export { LiveTiming } from './livetiming.js';
 
-const ROUTES = { '/api/news': news, '/api/openf1': openf1 };
+const ROUTES = { '/api/news': news, '/api/openf1': openf1, '/api/live/track': track };
 
 export default {
   async fetch(request, env, ctx) {
