@@ -399,3 +399,15 @@ table.t tr.clickable { cursor: pointer; }
 .flag-ico { display: inline-block; width: 1.25em; height: auto; vertical-align: -0.12em; border-radius: 2px; box-shadow: 0 0 0 1px rgba(255,255,255,.12); }
 .race-card .flag .flag-ico, .hero-card h1 .flag-ico { width: 1em; vertical-align: -0.05em; }
 .race-card .flag .flag-ico { width: 34px; }
+
+/* Cronometragem oficial F1 em directo (officiallive.js) */
+.ol-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr); gap: 18px; }
+.timing.ol .row { grid-template-columns: 26px 4px 44px 1fr 82px 40px 44px 24px; height: auto; min-height: 35px; }
+.timing.ol .row .sec i { display: inline-block; width: 10px; height: 6px; border-radius: 2px; margin-right: 2px; }
+.timing.ol .row .ty { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; }
+.timing.ol .row .pits { font-size: 12px; text-align: right; }
+@media (max-width: 900px) { .ol-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .timing.ol .row { grid-template-columns: 22px 4px 40px 1fr 74px 40px; gap: 6px; padding: 5px 6px; }
+  .timing.ol .row .sec, .timing.ol .row .pits, .timing.ol .row.hd span:nth-child(6), .timing.ol .row.hd span:nth-child(8) { display: none; }
+}

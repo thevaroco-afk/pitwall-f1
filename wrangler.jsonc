@@ -1,4 +1,4 @@
-// Configuração do Cloudflare Worker (site + /api/news + /api/openf1)
+// Configuração do Cloudflare Worker (site + /api/news + /api/openf1 + /api/live)
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "pitwall-f1",
@@ -12,5 +12,10 @@
   "kv_namespaces": [
     { "binding": "OF1_CACHE", "id": "38f2582f464742fa9b9c886294e2bb9a" }
   ],
+  // Cronometragem oficial em directo (uma ligação ao feed público da F1, partilhada)
+  "durable_objects": {
+    "bindings": [{ "name": "LIVE", "class_name": "LiveTiming" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["LiveTiming"] }],
   "observability": { "enabled": true }
 }
