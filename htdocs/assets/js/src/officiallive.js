@@ -104,7 +104,8 @@ function render() {
   const isQuali = /qualifying|shootout/i.test(type + ' ' + (info.Name || ''));
   const part = S.TimingData?.SessionPart; // Q1/Q2/Q3
   const live = isLive();
-  const ts = TRACK[S.TrackStatus?.Status] || TRACK[1];
+  const ended = /^(Finished|Finalised|Ends)$/i.test(S.SessionStatus?.Status || '');
+  const ts = live ? (TRACK[S.TrackStatus?.Status] || TRACK[1]) : ended ? ['CHEQUERED', 'Sessão terminada'] : null;
   const statusTxt = STATUS_PT[S.SessionStatus?.Status] || S.SessionStatus?.Status || '';
   const lapCount = S.LapCount?.CurrentLap ? `VOLTA ${S.LapCount.CurrentLap}${S.LapCount.TotalLaps ? '/' + S.LapCount.TotalLaps : ''}` : '';
   const app = S.TimingAppData?.Lines || {};
@@ -138,8 +139,8 @@ function render() {
     }).join('');
     const flags = l.Retired ? '<span class="chip red" style="padding:1px 7px">DNF</span>'
       : l.Stopped ? '<span class="chip red" style="padding:1px 7px">PARADO</span>'
-      : l.InPit ? '<span class="chip yellow" style="padding:1px 7px">BOX</span>'
-      : l.PitOut ? '<span class="chip blue" style="padding:1px 7px">SAÍDA</span>'
+      : live && l.InPit ? '<span class="chip yellow" style="padding:1px 7px">BOX</span>'
+      : live && l.PitOut ? '<span class="chip blue" style="padding:1px 7px">SAÍDA</span>'
       : l.KnockedOut ? '<span class="chip" style="padding:1px 7px">ELIM.</span>' : '';
     const pp = ST.prevPos.get(n);
     const mv = pp && pp !== pos ? (pos < pp ? 'up' : 'down') : '';
@@ -165,12 +166,12 @@ function render() {
       <div class="row-flex mb" style="justify-content:space-between">
         <div class="row-flex">
           <div class="card-title" style="margin:0">Cronometragem oficial F1</div>
-          ${live ? '<span class="chip live">AO VIVO</span>' : `<span class="chip">${esc(statusTxt || 'Sem sessão em curso')}</span>`}
+          ${live ? '<span class="chip live">AO VIVO</span>' : ended ? '' : `<span class="chip">${esc(statusTxt || 'Sem sessão em curso')}</span>`}
         </div>
         <div class="row-flex">
-          <span class="flag-banner flag-${ts[0]}">${ts[1]}</span>
+          ${ts ? `<span class="flag-banner flag-${ts[0]}">${ts[1]}</span>` : ''}
           ${lapCount ? `<span class="lapbig">${lapCount}</span>` : ''}
-          <span class="lapbig" id="olClock">${remaining() ?? ''}</span>
+          ${live ? `<span class="lapbig" id="olClock">${remaining() ?? ''}</span>` : ''}
         </div>
       </div>
       <h3 style="font-size:18px;margin:0 0 10px">${esc(info.Meeting?.Name || '')} · ${esc(NAME_PT[info.Name] || info.Name || TYPE_PT[info.Type] || '')}${part && isQuali ? ` · Q${part}` : ''}</h3>
