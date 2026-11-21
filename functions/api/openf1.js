@@ -1,20 +1,31 @@
 /**
- * PITWALL — proxy para a API OpenF1 (Cloudflare Pages Function).
+ * PITWALL — proxy para a API OpenF1 (Cloudflare Worker).
  * Usado quando o browser não consegue ligar directamente (ex.: Safari, bloqueios de rede/CORS).
  * Uso: /api/openf1?ep=sessions&q=year%3D2025
- * Substitui o antigo api/openf1.php do InfinityFree.
+ *
+ * Se existir o armazenamento KV "OF1_CACHE" (ver wrangler.jsonc), guarda uma cópia:
+ *  - dados de sessões já terminadas: guardados para sempre (não mudam);
+ *  - listas de sessões/GP: renovadas a cada 10 minutos.
+ * Assim, nos fins-de-semana de corrida, quando a OpenF1 fecha a API a quem não paga,
+ * o replay de sessões antigas continua a funcionar com a cópia guardada.
  */
 const ALLOWED = new Set(['sessions', 'meetings', 'drivers', 'position', 'intervals', 'laps', 'stints', 'pit',
   'race_control', 'weather', 'team_radio', 'location', 'car_data', 'session_result', 'starting_grid', 'overtakes']);
+const KV_MAX = 24 * 1024 * 1024; // limite do KV é 25 MiB por valor
+const LIST_TTL = 600;            // sessions/meetings: 10 minutos
 
+const JSON_CT = 'application/json; charset=utf-8';
 const json = (obj, status, extra = {}) => new Response(JSON.stringify(obj), {
-  status,
-  headers: { 'Content-Type': 'application/json; charset=utf-8', 'X-Content-Type-Options': 'nosniff', ...extra },
+  status, headers: { 'Content-Type': JSON_CT, 'X-Content-Type-Options': 'nosniff', ...extra },
+});
+const ok = (body, cacheState, maxAge) => new Response(body, {
+  status: 200,
+  headers: { 'Content-Type': JSON_CT, 'X-Content-Type-Options': 'nosniff', 'Cache-Control': `public, max-age=${maxAge}`, 'X-Cache': cacheState },
 });
 
-/** Quanto tempo guardar a resposta: dados de sessões já terminadas não mudam. */
+/** Quanto tempo a resposta é válida (s): dados de sessões terminadas não mudam. */
 export function ttlFor(ep, body) {
-  if (ep === 'sessions' || ep === 'meetings') return 600;
+  if (ep === 'sessions' || ep === 'meetings') return LIST_TTL;
   const tail = body.slice(-4000);
   const re = /"date(?:_start|_end)?":"(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d)/g;
   let last = null, m;
@@ -27,41 +38,46 @@ export function ttlFor(ep, body) {
 }
 
 export async function onRequestGet(context) {
-  const { request, waitUntil } = context;
+  const { request, waitUntil, env } = context;
+  const kv = env && env.OF1_CACHE;
   const url = new URL(request.url);
   const ep = url.searchParams.get('ep') || '';
   const q = url.searchParams.get('q') || '';
   if (!ALLOWED.has(ep) || q.length > 600 || /[\r\n\s#]/.test(q)) return json({ error: 'pedido inválido' }, 400);
 
-  const upstream = `https://api.openf1.org/v1/${ep}${q ? `?${q}` : ''}`;
+  const key = `${ep}?${q}`;
+  const isList = ep === 'sessions' || ep === 'meetings';
 
-  // cache da Cloudflare (pode não estar disponível em todos os domínios; nesse caso é ignorada)
-  let cache = null;
-  const cacheKey = new Request(`https://pitwall-cache.invalid/openf1/${ep}?${q}`);
-  try { cache = caches.default; const hit = await cache.match(cacheKey); if (hit) { const r = new Response(hit.body, hit); r.headers.set('X-Cache', 'HIT'); return r; } } catch { cache = null; }
+  // 1) cópia guardada
+  let stored = null;
+  if (kv) {
+    try { stored = await kv.getWithMetadata(key); } catch { stored = null; }
+    if (stored && stored.value !== null) {
+      const age = (Date.now() - (stored.metadata?.t || 0)) / 1000;
+      if (!isList || age < LIST_TTL) return ok(stored.value, 'HIT', isList ? LIST_TTL : 86400);
+    } else stored = null;
+  }
 
-  let res;
+  // 2) OpenF1
+  let res = null, body = '';
   try {
-    res = await fetch(upstream, { headers: { Accept: 'application/json', 'User-Agent': 'PitwallFanSite/1.0' } });
-  } catch {
-    return json({ error: 'OpenF1 inacessível a partir do servidor' }, 502);
+    res = await fetch(`https://api.openf1.org/v1/${ep}${q ? `?${q}` : ''}`, {
+      headers: { Accept: 'application/json', 'User-Agent': 'PitwallFanSite/1.0' },
+    });
+    body = await res.text();
+  } catch { res = null; }
+
+  if (res && res.status === 200) {
+    const ttl = ttlFor(ep, body);
+    if (kv && (isList || ttl >= 86400) && body.length < KV_MAX && body.trim().startsWith('[') && body.trim() !== '[]') {
+      const put = kv.put(key, body, { metadata: { t: Date.now() } }).catch(() => { /* limite diário de escrita, etc. */ });
+      try { waitUntil(put); } catch { /* */ }
+    }
+    return ok(body, 'MISS', Math.min(ttl, 86400));
   }
-  const body = await res.text();
-  if (res.status !== 200) {
-    return new Response(body, { status: res.status, headers: { 'Content-Type': res.headers.get('Content-Type') || 'application/json; charset=utf-8' } });
-  }
-  const ttl = ttlFor(ep, body);
-  const out = new Response(body, {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': `public, max-age=${Math.min(ttl, 86400)}`,
-      'X-Cache': 'MISS',
-    },
-  });
-  if (cache && body.length < 3_000_000) {
-    try { waitUntil(cache.put(cacheKey, new Response(body, { headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': `public, max-age=${ttl}` } }))); } catch { /* */ }
-  }
-  return out;
+
+  // 3) OpenF1 recusou ou falhou: serve a cópia antiga, se houver
+  if (stored) return ok(stored.value, 'STALE', 60);
+  if (!res) return json({ error: 'OpenF1 inacessível a partir do servidor' }, 502);
+  return new Response(body, { status: res.status, headers: { 'Content-Type': res.headers.get('Content-Type') || JSON_CT } });
 }
