@@ -59,9 +59,7 @@ textarea{width:100%;height:160px;background:#14141c;color:#ddd;border:1px solid 
     s.onerror = () => { add(false, 'Biblioteca do mapa (Leaflet)', 'não carregou (rede/bloqueador)'); res(); };
     document.head.append(s);
   });
-  for (const [n, u] of [['Mosaicos do mapa (CARTO)', 'https://a.basemaps.cartocdn.com/dark_all/2/1/1.png'], ['Mosaicos do mapa (Esri)', 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/2/1/1']]) {
-    await new Promise((res) => { const i = new Image(); i.onload = () => { add(true, n, 'imagem carregou'); res(); }; i.onerror = () => { add(false, n, 'imagem não carregou'); res(); }; i.src = u; });
-  }
+  await tryFetch('Mapa-mundo local (data/world.json)', 'data/world.json', isJson);
   try { localStorage.setItem('pw-test', '1'); localStorage.removeItem('pw-test'); add(true, 'Armazenamento local', 'disponível'); } catch (e) { add(null, 'Armazenamento local', 'indisponível (não é grave)'); }
   add(null, 'Fim', 'diagnóstico terminado');
 })();

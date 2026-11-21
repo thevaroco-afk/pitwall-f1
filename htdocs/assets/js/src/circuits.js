@@ -90,16 +90,15 @@ init(async () => {
 
   if (window.L) {
     map = L.map('map', { worldCopyJump: true, zoomControl: true }).setView([30, 10], 2);
-    // mosaicos escuros da CARTO; se falharem (bloqueio/rede), muda para a Esri
-    const carto = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains: 'abcd', maxZoom: 18 }).addTo(map);
-    let fails = 0, ok = 0;
-    carto.on('tileload', () => ok++);
-    carto.on('tileerror', () => {
-      if (++fails === 3 && !ok) {
-        map.removeLayer(carto);
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', { attribution: 'Esri', maxZoom: 16 }).addTo(map);
-      }
-    });
+    // mapa-mundo próprio (Natural Earth, ficheiro local): não depende de serviços de mosaicos nem de chaves de API
+    map.getContainer().style.background = '#0b0d14';
+    map.attributionControl.addAttribution('Natural Earth');
+    getLocal('data/world.json').then((w) => {
+      if (!w) return;
+      const renderer = L.canvas({ padding: 0.5 });
+      L.geoJSON(w.land, { interactive: false, renderer, style: { stroke: false, fillColor: '#1f2230', fillOpacity: 1 } }).addTo(map);
+      L.geoJSON(w.borders, { interactive: false, renderer, style: { color: '#3a3e52', weight: 0.7, fill: false } }).addTo(map);
+    }).catch(() => { /* sem mapa de fundo: os marcadores continuam a aparecer */ });
   }
   try { list = await loadCircuits(); } catch (e) { $('#cList').innerHTML = errorBox('Sem dados de circuitos.', e.message); return; }
   if (!map) simpleMap(list);
