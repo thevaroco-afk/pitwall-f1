@@ -3,6 +3,7 @@
 // =========================================================
 import { init, $, $$, esc, getJSON, smartFetch, parseT, currentLiveSession, fmt, flagCountry, flagTextCountry, skeleton, errorBox, qs, setQs, clamp, sleep } from './core.js';
 import { CONFIG } from './config.js';
+import { mountOfficialLive } from './officiallive.js';
 import { strategyChart, lapTimeChart, positionChart, driverMapFromOpenF1, TYRE_COLORS, tyreLetter } from './raceviz.js';
 
 const API = CONFIG.openf1;
@@ -145,7 +146,7 @@ async function loadSession(session, meeting) {
 function showAuthOrError(e) {
   $('#status').textContent = '';
   $('#tower').innerHTML = e.auth
-    ? `<div class="notice warn" style="margin:14px">A OpenF1 só disponibiliza dados <b>em tempo real</b> a contas pagas. Os dados desta sessão ficam disponíveis gratuitamente pouco depois de terminar — volte nessa altura para ver o replay completo.</div>`
+    ? `<div class="notice warn" style="margin:14px">A OpenF1 só disponibiliza dados <b>em tempo real</b> a contas pagas. Veja a tabela de tempos em directo no quadro <b>Cronometragem oficial F1</b> acima; o mapa e o replay completo ficam disponíveis pouco depois de a sessão terminar.</div>`
     : errorBox('Não foi possível ligar à OpenF1.', e.message);
 }
 
@@ -607,6 +608,7 @@ init(async () => {
       </div>
     </section>
     <section class="section container" style="padding-top:18px">
+      <div id="officialLive" class="mb"></div>
       <div class="row-flex mb"><h2 id="sessTitle" style="font-size:22px">—</h2><span id="liveChip"></span></div>
       <div class="live-layout">
         <div>
@@ -647,6 +649,7 @@ init(async () => {
       <p class="muted mt" style="font-size:13px">Dados: OpenF1 (gratuito para sessões terminadas; dados em tempo real exigem conta paga na OpenF1). Posições no mapa a ~4 Hz, interpoladas.</p>
     </section>`;
 
+  mountOfficialLive($('#officialLive'));
   setupCanvas();
   requestAnimationFrame(loop);
   livePoll();
