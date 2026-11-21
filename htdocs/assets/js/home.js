@@ -522,17 +522,32 @@ function countdown(el, target) {
   setInterval(tick, 1000);
 }
 
+// duração aproximada de cada sessão (para saber se está a decorrer)
+const sessDur = (s) => (s.key === 'Race' ? 2.5 : 1) * 3600e3;
+const sessEnd = (s) => s.date.getTime() + sessDur(s);
+/** Sessão a decorrer (se houver) e próxima sessão a começar — a contagem decrescente é para esta. */
+function sessionState(sess, now = Date.now()) {
+  const live = sess.find((s) => s.date.getTime() <= now && now < sessEnd(s)) || null;
+  const upcoming = sess.find((s) => s.date.getTime() > now) || null;
+  return { live, upcoming };
+}
+
 function heroHtml(next) {
   const sess = weekendSessions(next);
   const now = Date.now();
-  const upcoming = sess.find((s) => s.date.getTime() + 2 * 3600e3 > now) || sess[sess.length - 1];
+  const { live, upcoming } = sessionState(sess, now);
+  const when = (s) => `<b style="color:#fff">${esc(s.name)}</b> · ${esc(fmt.weekday(s.date))} às ${esc(fmt.time(s.date))}`;
+  const status = [
+    live ? `A decorrer: <b style="color:#fff">${esc(live.name)}</b>` : '',
+    upcoming ? `${live ? 'A seguir' : 'Próxima sessão'}: ${when(upcoming)}` : '',
+  ].filter(Boolean).join('<br>') || 'Fim-de-semana terminado';
   const loc = next.Circuit.Location;
   return `<div class="hero-card fade-in">
     <div>
       <div class="eyebrow"><span>Ronda ${next.round} · ${next.season}</span><span id="liveChip"></span></div>
       <h1>${flagCountry(loc.country)} ${esc(next.raceName.replace('Grand Prix', 'GP'))}</h1>
       <div class="sub">${esc(next.Circuit.circuitName)} · ${esc(loc.locality)}, ${esc(loc.country)}</div>
-      <div class="sub mt-s" style="font-size:15px">Próxima sessão: <b style="color:#fff">${esc(upcoming.name)}</b> · ${esc(fmt.weekday(upcoming.date))} às ${esc(fmt.time(upcoming.date))}</div>
+      <div class="sub mt-s" style="font-size:15px">${status}</div>
       <div class="countdown" id="cd"></div>
       <div class="row-flex mt">
         <a class="btn primary" href="aovivo.html">● Ao Vivo / Replay</a>
@@ -543,8 +558,8 @@ function heroHtml(next) {
     <div>
       <div class="card-title">Horários do fim-de-semana <span class="right muted">hora local</span></div>
       <div class="sessions-list">${sess.map((s) => {
-        const done = s.date.getTime() + 2 * 3600e3 < now;
-        return `<div class="s ${done ? 'done' : ''} ${s === upcoming ? 'next' : ''}"><span class="nm">${esc(s.name)}</span><span class="d">${esc(fmt.weekday(s.date))}</span><span class="h">${esc(fmt.time(s.date))}</span></div>`;
+        const done = sessEnd(s) < now;
+        return `<div class="s ${done ? 'done' : ''} ${s === (live || upcoming) ? 'next' : ''}"><span class="nm">${esc(s.name)}</span><span class="d">${esc(fmt.weekday(s.date))}</span><span class="h">${esc(fmt.time(s.date))}</span></div>`;
       }).join('')}</div>
     </div>
   </div>`;
@@ -586,7 +601,7 @@ init(async () => {
     if (!next) { $('#hero').innerHTML = errorBox('Calendário indisponível.'); return; }
     $('#hero').innerHTML = heroHtml(next);
     const sess = weekendSessions(next);
-    const target = (sess.find((s) => s.date > Date.now()) || sess[sess.length - 1]).date;
+    const target = (sessionState(sess).upcoming || sess[sess.length - 1]).date;
     countdown($('#cd'), target);
     currentLiveSession().then((s) => {
       if (s) $('#liveChip').innerHTML = `<a class="chip live" href="aovivo.html">AO VIVO · ${esc(s.session_name)}</a>`;
