@@ -83,10 +83,37 @@ async function profile(id) {
 
 const age = (dob) => { if (!dob) return null; const d = new Date(dob); const n = new Date(); let a = n.getFullYear() - d.getFullYear(); if (n < new Date(n.getFullYear(), d.getMonth(), d.getDate())) a--; return a; };
 
-function statCards(P) {
-  const t = P.totals;
-  return [[t.titles, 'Títulos'], [t.wins, 'Vitórias'], [t.podiums, 'Pódios'], [t.poles, 'Poles'], [t.starts, 'GP'], [fmt.pts(t.points), 'Pontos']]
-    .map(([v, l]) => `<div class="card"><div class="stat"><span class="v">${v ?? '—'}</span><span class="l">${l}</span></div></div>`).join('');
+const STAT_KEYS = [['titles', 'Títulos'], ['wins', 'Vitórias'], ['podiums', 'Pódios'], ['poles', 'Poles'], ['starts', 'GP'], ['points', 'Pontos']];
+function statCards(P, V) {
+  const show = (k, v) => (v == null ? '—' : k === 'points' ? fmt.pts(v) : v);
+  if (!V) return STAT_KEYS.map(([k, l]) => `<div class="card"><div class="stat"><span class="v">${show(k, P.totals[k])}</span><span class="l">${l}</span></div></div>`).join('');
+  // com comparação: valor de cada piloto numa ponta do mesmo quadrado
+  const vc = V.color === P.color ? '#ffffff' : V.color;
+  return STAT_KEYS.map(([k, l]) => {
+    const a = P.totals[k] || 0, b = V.totals[k] || 0;
+    const sa = String(show(k, P.totals[k])), sb = String(show(k, V.totals[k]));
+    const fs = Math.max(sa.length, sb.length) >= 5 ? 'clamp(16px,1.7vw,22px)' : 'clamp(20px,2.4vw,30px)';
+    return `<div class="card"><div class="stat"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
+      <span class="v" style="font-size:${fs};${a > b ? `color:${P.color}` : ''}">${sa}</span>
+      <span class="v" style="font-size:${fs};text-align:right;${b > a ? `color:${vc}` : ''}">${sb}</span>
+    </div><span class="l" style="text-align:center">${l}</span></div></div>`;
+  }).join('');
+}
+
+/** Cabeçalho de um piloto (side 'r' = espelhado, para o piloto comparado). */
+function profileHead(P, side = 'l') {
+  const initials = P.name.split(' ').map((w) => w[0]).slice(0, 2).join('');
+  const r = side === 'r';
+  const ss = P.seasons;
+  const name = r ? `<a href="pilotos.html?id=${esc(P.id)}">${esc(P.name)}</a>` : esc(P.name);
+  return `<div class="profile-head" style="${r ? 'flex-direction:row-reverse;text-align:right' : ''}">
+        <div class="avatar" style="border:2px solid ${P.color}">${P.headshot ? `<img src="${esc(P.headshot)}" alt="">` : esc(initials)}</div>
+        <div>
+          <div class="muted" style="font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px">${flagNat(P.nat)} ${esc(P.nat || '')}${P.num ? ` · #${esc(P.num)}` : ''}${P.code ? ` · ${esc(P.code)}` : ''}</div>
+          <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;font-style:italic;text-transform:uppercase">${name}</h2>
+          <div class="text-2">${P.dob ? `Nascido a ${esc(fmt.date(P.dob))} (${age(P.dob)} anos)` : ''} · ${ss[0]?.year}–${ss.at(-1)?.year}${P.url ? ` · <a href="${esc(P.url)}" target="_blank" rel="noopener" style="text-decoration:underline">Wikipedia</a>` : ''}</div>
+        </div>
+      </div>`;
 }
 
 async function renderProfile(id, vs) {
@@ -94,20 +121,13 @@ async function renderProfile(id, vs) {
   el.innerHTML = `<div class="card">${skeleton(12)}</div>`;
   const [P, V] = await Promise.all([profile(id), vs ? profile(vs).catch(() => null) : null]);
   document.title = `${P.name} · ${CONFIG.siteName}`;
-  const initials = P.name.split(' ').map((w) => w[0]).slice(0, 2).join('');
   const seasonsDone = P.seasons;
+  const vc = V && V.color === P.color ? '#ffffff' : V?.color;
   el.innerHTML = `
-    <div class="card" style="background:linear-gradient(115deg, ${P.color}33, transparent 55%), var(--surface)">
-      <div class="profile-head">
-        <div class="avatar" style="border:2px solid ${P.color}">${P.headshot ? `<img src="${esc(P.headshot)}" alt="">` : esc(initials)}</div>
-        <div>
-          <div class="muted" style="font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px">${flagNat(P.nat)} ${esc(P.nat || '')}${P.num ? ` · #${esc(P.num)}` : ''}${P.code ? ` · ${esc(P.code)}` : ''}</div>
-          <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;font-style:italic;text-transform:uppercase">${esc(P.name)}</h2>
-          <div class="text-2">${P.dob ? `Nascido a ${esc(fmt.date(P.dob))} (${age(P.dob)} anos)` : ''} · ${seasonsDone[0]?.year}–${seasonsDone.at(-1)?.year}${P.url ? ` · <a href="${esc(P.url)}" target="_blank" rel="noopener" style="text-decoration:underline">Wikipedia</a>` : ''}</div>
-        </div>
-      </div>
+    <div class="card" style="background:linear-gradient(115deg, ${P.color}33, transparent 55%)${V ? `, linear-gradient(245deg, ${vc}33, transparent 55%)` : ''}, var(--surface)">
+      ${V ? `<div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">${profileHead(P)}<div style="margin-left:auto">${profileHead(V, 'r')}</div></div>` : profileHead(P)}
     </div>
-    <div class="grid mt" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))">${statCards(P)}</div>
+    <div class="grid mt" style="grid-template-columns:repeat(auto-fit,minmax(${V ? 150 : 130}px,1fr))">${statCards(P, V)}</div>
     <div class="card mt">
       <div class="row-flex" style="justify-content:space-between"><div class="card-title" style="margin:0">Comparar com outro piloto</div>
       <div class="row-flex"><input class="input" id="vsInput" list="vsList" placeholder="Escreva um nome…" value="${V ? esc(V.name) : ''}" style="min-width:240px"><datalist id="vsList"></datalist>${V ? '<button class="btn small" id="vsClear">Limpar</button>' : ''}</div></div>
