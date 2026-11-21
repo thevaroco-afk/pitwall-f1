@@ -20,7 +20,7 @@ A versão do InfinityFree continua a funcionar como está. Pode desligá-la quan
 
 ## Passo 2 — Enviar os ficheiros
 
-O site tem mais de 3000 ficheiros (os dados históricos), e a página do GitHub só aceita 100 de cada vez. Por isso há duas formas:
+O site tem cerca de 1800 ficheiros (os dados históricos), e a página do GitHub só aceita 100 de cada vez. Por isso há duas formas:
 
 ### Opção A (mais fácil): o Claude envia por si
 
