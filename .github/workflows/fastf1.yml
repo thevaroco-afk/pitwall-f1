@@ -49,7 +49,16 @@ jobs:
           restore-keys: fastf1-
 
       - name: Exportar sessões em falta
+        env:
+          # Desde Outubro de 2026 a F1 exige uma assinatura F1 TV (Access ou superior) para os dados.
+          # Guarde o email e a palavra-passe da F1 TV em Settings → Secrets and variables → Actions.
+          F1_USERNAME: ${{ secrets.F1_USERNAME }}
+          F1_PASSWORD: ${{ secrets.F1_PASSWORD }}
         run: |
+          if [ -z "$F1_USERNAME" ] || [ -z "$F1_PASSWORD" ]; then
+            echo "::warning::Sem conta F1 TV (segredos F1_USERNAME e F1_PASSWORD). Exportação FastF1 ignorada."
+            exit 0
+          fi
           YEAR="${{ github.event.inputs.year }}"
           MAX="${{ github.event.inputs.max_events }}"
           [ -z "$YEAR" ] && YEAR=$(date -u +%Y)
