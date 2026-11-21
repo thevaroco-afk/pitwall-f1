@@ -8,5 +8,9 @@
     "directory": "./htdocs",
     "binding": "ASSETS"
   },
+  // Armazenamento das sessões OpenF1 já terminadas (Workers KV "pitwall-openf1")
+  "kv_namespaces": [
+    { "binding": "OF1_CACHE", "id": "38f2582f464742fa9b9c886294e2bb9a" }
+  ],
   "observability": { "enabled": true }
 }
