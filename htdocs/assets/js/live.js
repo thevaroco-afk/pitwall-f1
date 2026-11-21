@@ -1624,8 +1624,10 @@ function updateTower(force = false) {
   const order = towerOrder(t);
   const el = $('#towerRows');
   if (!el) return;
-  if (el.dataset.session !== String(S.session.session_key)) {
-    el.dataset.session = S.session.session_key;
+  // reconstruir quando a sessão OU a lista de pilotos muda (os pilotos chegam depois da sessão)
+  const towerKey = `${S.session.session_key}:${S.drivers.size}`;
+  if (el.dataset.session !== towerKey) {
+    el.dataset.session = towerKey;
     el.style.height = order.length * ROW_H + 'px';
     el.innerHTML = order.map((n) => { const d = S.drivers.get(n); return `<div class="row" data-n="${n}" style="position:absolute;left:0;right:0;transition:transform .6s cubic-bezier(.2,.8,.2,1)"><span class="p"></span><span class="team-bar" style="background:${d.color};height:20px"></span><span class="ab">${esc(d.acr)}</span><span class="gp"></span><span class="gap"></span><span class="ty"></span></div>`; }).join('');
     $('#tower').innerHTML = '';
