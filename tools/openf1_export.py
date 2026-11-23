@@ -123,10 +123,16 @@ def season_meetings(year: int) -> list[dict]:
     meetings = [m for m in get("meetings", {"year": year}) if not re.search(r"test", m.get("meeting_name", ""), re.I)]
     meetings.sort(key=lambda m: m["date_start"])
     sessions = get("sessions", {"year": year})
-    out = []
-    for rnd, m in enumerate(meetings, 1):
+    out, rnd, now = [], 0, time.time()
+    for m in meetings:
         ss = [s for s in sessions if s["meeting_key"] == m["meeting_key"] and s["session_name"] in WANTED]
         ss.sort(key=lambda s: s["date_start"])
+        race = next((s for s in ss if s["session_name"] == "Race"), None)
+        # GP cancelados continuam na lista da OpenF1 mas sem resultados: não contam para a numeração das rondas
+        if race and (ts(race.get("date_end")) or 9e18) < now - 86400 and not get("session_result", {"session_key": race["session_key"]}):
+            print(f"(sem resultados, provavelmente cancelado: {m['meeting_name']})")
+            continue
+        rnd += 1
         out.append({"round": rnd, "meeting": m, "sessions": ss})
     return out
 
@@ -176,6 +182,8 @@ def circuit_info(circuit_key, year, ref: dict | None) -> dict:
     circ = {"rotation": 0, "corners": []}
     try:
         data = get(MULTIVIEWER.format(key=circuit_key, year=year), base="mv")
+        if not isinstance(data, dict):
+            raise RuntimeError("circuito não encontrado no MultiViewer")
         circ["rotation"] = float(data.get("rotation") or 0)
         xs = np.array(ref["x"]) if ref and "x" in ref else None
         ys = np.array(ref["y"]) if ref and "y" in ref else None
@@ -245,7 +253,7 @@ def export_session(year: int, rnd: int, meeting: dict, s: dict, out_dir: Path) -
         drivers.append({
             "abbr": d["name_acronym"], "number": num, "name": d.get("full_name"), "team": d.get("team_name"),
             "color": "#" + (d.get("team_colour") or "888888").lstrip("#"), "headshot": d.get("headshot_url"),
-            "position": res.get("position"), "grid": grid.get(num), "status": status, "points": res.get("points"),
+            "position": res.get("position") if isinstance(res.get("position"), int) else None, "grid": grid.get(num), "status": status, "points": res.get("points") if isinstance(res.get("points"), (int, float)) else None,
             "bestLap": b[0]["t"] if b else None, "bestLapNumber": b[0]["n"] if b else None,
             "sectors": [b[0]["s1"], b[0]["s2"], b[0]["s3"]] if b else None, "compound": b[0]["c"] if b else None,
         })

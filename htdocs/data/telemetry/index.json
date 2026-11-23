@@ -1,9 +1,9 @@
 {
  "sessions": [
   {
-   "id": "2026-23-race",
+   "id": "2026-21-race",
    "year": 2026,
-   "round": 23,
+   "round": 21,
    "event": "Las Vegas Grand Prix",
    "country": "United States",
    "location": "Las Vegas",
@@ -35,9 +35,9 @@
    ]
   },
   {
-   "id": "2026-23-qualifying",
+   "id": "2026-21-qualifying",
    "year": 2026,
-   "round": 23,
+   "round": 21,
    "event": "Las Vegas Grand Prix",
    "country": "United States",
    "location": "Las Vegas",
@@ -70,9 +70,9 @@
    ]
   },
   {
-   "id": "2026-22-race",
+   "id": "2026-20-race",
    "year": 2026,
-   "round": 22,
+   "round": 20,
    "event": "São Paulo Grand Prix",
    "country": "Brazil",
    "location": "São Paulo",
@@ -104,9 +104,9 @@
    ]
   },
   {
-   "id": "2026-22-qualifying",
+   "id": "2026-20-qualifying",
    "year": 2026,
-   "round": 22,
+   "round": 20,
    "event": "São Paulo Grand Prix",
    "country": "Brazil",
    "location": "São Paulo",
@@ -139,9 +139,9 @@
    ]
   },
   {
-   "id": "2026-21-race",
+   "id": "2026-19-race",
    "year": 2026,
-   "round": 21,
+   "round": 19,
    "event": "Mexico City Grand Prix",
    "country": "Mexico",
    "location": "Mexico City",
@@ -174,9 +174,9 @@
    ]
   },
   {
-   "id": "2026-21-qualifying",
+   "id": "2026-19-qualifying",
    "year": 2026,
-   "round": 21,
+   "round": 19,
    "event": "Mexico City Grand Prix",
    "country": "Mexico",
    "location": "Mexico City",
@@ -209,9 +209,9 @@
    ]
   },
   {
-   "id": "2026-20-race",
+   "id": "2026-18-race",
    "year": 2026,
-   "round": 20,
+   "round": 18,
    "event": "United States Grand Prix",
    "country": "United States",
    "location": "Austin",
@@ -244,9 +244,9 @@
    ]
   },
   {
-   "id": "2026-20-qualifying",
+   "id": "2026-18-qualifying",
    "year": 2026,
-   "round": 20,
+   "round": 18,
    "event": "United States Grand Prix",
    "country": "United States",
    "location": "Austin",
@@ -279,77 +279,9 @@
    ]
   },
   {
-   "id": "2026-19-sprint",
+   "id": "2026-16-race",
    "year": 2026,
-   "round": 19,
-   "event": "Singapore Grand Prix",
-   "country": "Singapore",
-   "location": "Marina Bay",
-   "session": "Sprint",
-   "sessionName": "Sprint",
-   "date": "2026-10-10T09:00:00+00:00",
-   "drivers": [
-    "VER",
-    "HAM",
-    "LEC",
-    "ANT",
-    "LAW",
-    "BEA",
-    "HUL",
-    "NOR",
-    "GAS",
-    "OCO",
-    "ALO",
-    "SAI",
-    "LIN",
-    "PIA",
-    "ALB",
-    "HAD",
-    "COL",
-    "BOR",
-    "BOT",
-    "RUS"
-   ]
-  },
-  {
-   "id": "2026-19-race",
-   "year": 2026,
-   "round": 19,
-   "event": "Singapore Grand Prix",
-   "country": "Singapore",
-   "location": "Marina Bay",
-   "session": "Race",
-   "sessionName": "Corrida",
-   "date": "2026-10-11T12:00:00+00:00",
-   "drivers": [
-    "VER",
-    "LEC",
-    "ANT",
-    "NOR",
-    "PIA",
-    "HAM",
-    "LAW",
-    "HUL",
-    "RUS",
-    "HAD",
-    "GAS",
-    "BEA",
-    "OCO",
-    "SAI",
-    "LIN",
-    "ALO",
-    "PER",
-    "ALB",
-    "BOT",
-    "STR",
-    "COL",
-    "BOR"
-   ]
-  },
-  {
-   "id": "2026-18-race",
-   "year": 2026,
-   "round": 18,
+   "round": 16,
    "event": "Bahrain Grand Prix",
    "country": "Bahrain",
    "location": "Kuala Lumpur",
@@ -382,9 +314,9 @@
    ]
   },
   {
-   "id": "2026-18-qualifying",
+   "id": "2026-16-qualifying",
    "year": 2026,
-   "round": 18,
+   "round": 16,
    "event": "Bahrain Grand Prix",
    "country": "Bahrain",
    "location": "Kuala Lumpur",
@@ -417,9 +349,9 @@
    ]
   },
   {
-   "id": "2026-17-race",
+   "id": "2026-15-race",
    "year": 2026,
-   "round": 17,
+   "round": 15,
    "event": "Azerbaijan Grand Prix",
    "country": "Azerbaijan",
    "location": "Baku",
@@ -452,9 +384,9 @@
    ]
   },
   {
-   "id": "2026-17-qualifying",
+   "id": "2026-15-qualifying",
    "year": 2026,
-   "round": 17,
+   "round": 15,
    "event": "Azerbaijan Grand Prix",
    "country": "Azerbaijan",
    "location": "Baku",
@@ -487,9 +419,9 @@
    ]
   },
   {
-   "id": "2026-16-race",
+   "id": "2026-14-race",
    "year": 2026,
-   "round": 16,
+   "round": 14,
    "event": "Spanish Grand Prix",
    "country": "Spain",
    "location": "Madrid",
@@ -522,9 +454,9 @@
    ]
   },
   {
-   "id": "2026-16-qualifying",
+   "id": "2026-14-qualifying",
    "year": 2026,
-   "round": 16,
+   "round": 14,
    "event": "Spanish Grand Prix",
    "country": "Spain",
    "location": "Madrid",
@@ -556,9 +488,9 @@
    ]
   },
   {
-   "id": "2026-15-race",
+   "id": "2026-13-race",
    "year": 2026,
-   "round": 15,
+   "round": 13,
    "event": "Italian Grand Prix",
    "country": "Italy",
    "location": "Monza",
@@ -591,9 +523,9 @@
    ]
   },
   {
-   "id": "2026-15-qualifying",
+   "id": "2026-13-qualifying",
    "year": 2026,
-   "round": 15,
+   "round": 13,
    "event": "Italian Grand Prix",
    "country": "Italy",
    "location": "Monza",
@@ -626,9 +558,9 @@
    ]
   },
   {
-   "id": "2026-14-sprint",
+   "id": "2026-12-sprint",
    "year": 2026,
-   "round": 14,
+   "round": 12,
    "event": "Dutch Grand Prix",
    "country": "Netherlands",
    "location": "Zandvoort",
@@ -661,9 +593,9 @@
    ]
   },
   {
-   "id": "2026-14-race",
+   "id": "2026-12-race",
    "year": 2026,
-   "round": 14,
+   "round": 12,
    "event": "Dutch Grand Prix",
    "country": "Netherlands",
    "location": "Zandvoort",
@@ -695,9 +627,9 @@
    ]
   },
   {
-   "id": "2026-14-qualifying",
+   "id": "2026-12-qualifying",
    "year": 2026,
-   "round": 14,
+   "round": 12,
    "event": "Dutch Grand Prix",
    "country": "Netherlands",
    "location": "Zandvoort",
@@ -730,9 +662,9 @@
    ]
   },
   {
-   "id": "2026-13-race",
+   "id": "2026-11-race",
    "year": 2026,
-   "round": 13,
+   "round": 11,
    "event": "Hungarian Grand Prix",
    "country": "Hungary",
    "location": "Budapest",
@@ -765,9 +697,9 @@
    ]
   },
   {
-   "id": "2026-13-qualifying",
+   "id": "2026-11-qualifying",
    "year": 2026,
-   "round": 13,
+   "round": 11,
    "event": "Hungarian Grand Prix",
    "country": "Hungary",
    "location": "Budapest",
@@ -800,9 +732,9 @@
    ]
   },
   {
-   "id": "2026-12-race",
+   "id": "2026-10-race",
    "year": 2026,
-   "round": 12,
+   "round": 10,
    "event": "Belgian Grand Prix",
    "country": "Belgium",
    "location": "Spa-Francorchamps",
@@ -834,9 +766,9 @@
    ]
   },
   {
-   "id": "2026-12-qualifying",
+   "id": "2026-10-qualifying",
    "year": 2026,
-   "round": 12,
+   "round": 10,
    "event": "Belgian Grand Prix",
    "country": "Belgium",
    "location": "Spa-Francorchamps",
@@ -869,9 +801,9 @@
    ]
   },
   {
-   "id": "2026-11-sprint",
+   "id": "2026-09-sprint",
    "year": 2026,
-   "round": 11,
+   "round": 9,
    "event": "British Grand Prix",
    "country": "United Kingdom",
    "location": "Silverstone",
@@ -904,9 +836,9 @@
    ]
   },
   {
-   "id": "2026-11-race",
+   "id": "2026-09-race",
    "year": 2026,
-   "round": 11,
+   "round": 9,
    "event": "British Grand Prix",
    "country": "United Kingdom",
    "location": "Silverstone",
@@ -939,9 +871,9 @@
    ]
   },
   {
-   "id": "2026-11-qualifying",
+   "id": "2026-09-qualifying",
    "year": 2026,
-   "round": 11,
+   "round": 9,
    "event": "British Grand Prix",
    "country": "United Kingdom",
    "location": "Silverstone",
@@ -974,9 +906,9 @@
    ]
   },
   {
-   "id": "2026-10-race",
+   "id": "2026-08-race",
    "year": 2026,
-   "round": 10,
+   "round": 8,
    "event": "Austrian Grand Prix",
    "country": "Austria",
    "location": "Spielberg",
@@ -1009,9 +941,9 @@
    ]
   },
   {
-   "id": "2026-10-qualifying",
+   "id": "2026-08-qualifying",
    "year": 2026,
-   "round": 10,
+   "round": 8,
    "event": "Austrian Grand Prix",
    "country": "Austria",
    "location": "Spielberg",
@@ -1044,9 +976,9 @@
    ]
   },
   {
-   "id": "2026-09-race",
+   "id": "2026-07-race",
    "year": 2026,
-   "round": 9,
+   "round": 7,
    "event": "Barcelona Grand Prix",
    "country": "Spain",
    "location": "Barcelona",
@@ -1079,9 +1011,9 @@
    ]
   },
   {
-   "id": "2026-09-qualifying",
+   "id": "2026-07-qualifying",
    "year": 2026,
-   "round": 9,
+   "round": 7,
    "event": "Barcelona Grand Prix",
    "country": "Spain",
    "location": "Barcelona",
@@ -1114,9 +1046,9 @@
    ]
   },
   {
-   "id": "2026-08-race",
+   "id": "2026-06-race",
    "year": 2026,
-   "round": 8,
+   "round": 6,
    "event": "Monaco Grand Prix",
    "country": "Monaco",
    "location": "Monte Carlo",
@@ -1148,9 +1080,9 @@
    ]
   },
   {
-   "id": "2026-08-qualifying",
+   "id": "2026-06-qualifying",
    "year": 2026,
-   "round": 8,
+   "round": 6,
    "event": "Monaco Grand Prix",
    "country": "Monaco",
    "location": "Monte Carlo",
@@ -1183,9 +1115,9 @@
    ]
   },
   {
-   "id": "2026-07-sprint",
+   "id": "2026-05-sprint",
    "year": 2026,
-   "round": 7,
+   "round": 5,
    "event": "Canadian Grand Prix",
    "country": "Canada",
    "location": "Montréal",
@@ -1218,9 +1150,9 @@
    ]
   },
   {
-   "id": "2026-07-race",
+   "id": "2026-05-race",
    "year": 2026,
-   "round": 7,
+   "round": 5,
    "event": "Canadian Grand Prix",
    "country": "Canada",
    "location": "Montréal",
@@ -1252,9 +1184,9 @@
    ]
   },
   {
-   "id": "2026-07-qualifying",
+   "id": "2026-05-qualifying",
    "year": 2026,
-   "round": 7,
+   "round": 5,
    "event": "Canadian Grand Prix",
    "country": "Canada",
    "location": "Montréal",
@@ -1287,9 +1219,9 @@
    ]
   },
   {
-   "id": "2026-06-sprint",
+   "id": "2026-04-sprint",
    "year": 2026,
-   "round": 6,
+   "round": 4,
    "event": "Miami Grand Prix",
    "country": "United States",
    "location": "Miami Gardens",
@@ -1320,9 +1252,9 @@
    ]
   },
   {
-   "id": "2026-06-race",
+   "id": "2026-04-race",
    "year": 2026,
-   "round": 6,
+   "round": 4,
    "event": "Miami Grand Prix",
    "country": "United States",
    "location": "Miami Gardens",
@@ -1355,9 +1287,9 @@
    ]
   },
   {
-   "id": "2026-06-qualifying",
+   "id": "2026-04-qualifying",
    "year": 2026,
-   "round": 6,
+   "round": 4,
    "event": "Miami Grand Prix",
    "country": "United States",
    "location": "Miami Gardens",
